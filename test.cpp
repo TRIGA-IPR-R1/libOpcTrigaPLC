@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 
     try
     {
-        libOpcTrigaPLC plc(argv[1], std::stoi(argv[2]));
+        libOpcTrigaPLC plc(argv[1], argv[2]);
         for(int i=0;i<std::stoi(argv[3]);i++)
         {
             PLC_DATA data = plc.get_all();

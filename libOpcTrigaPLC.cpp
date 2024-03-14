@@ -19,18 +19,41 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "libOpcTrigaPLC.h"
 
-libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, int port)
+libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, std::string port)
 {
-
+    try
+    {
+        client.connect("opc.tcp://" + ipAddress + ":" + port);
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Erro: " << e.what() << std::endl;
+    }
 }
 
 libOpcTrigaPLC::~libOpcTrigaPLC()
 {
-
+    client.disconnect();
 }
 
 PLC_DATA libOpcTrigaPLC::get_all()
 {
+    try
+    {
+        plcData.BarraReg = client.getNode(opcua::NodeId("ns=2;s=GVL.BarraReg")).readValueScalar<float>();
+        plcData.BarraCon = client.getNode(opcua::NodeId("ns=2;s=GVL.BarraCon")).readValueScalar<float>();
+        plcData.BarraSeg = client.getNode(opcua::NodeId("ns=2;s=GVL.BarraSeg")).readValueScalar<float>();
+        plcData.CLogALog = client.getNode(opcua::NodeId("ns=2;s=GVL.CLogALog")).readValueScalar<float>();
+        plcData.CLogALin = client.getNode(opcua::NodeId("ns=2;s=GVL.CLogALin")).readValueScalar<float>();
+        plcData.CLogAPer = client.getNode(opcua::NodeId("ns=2;s=GVL.CLogAPer")).readValueScalar<float>();
+
+        plcData.STATE = 0;
+    }
+    catch (const std::exception& e)
+    {
+        plcData.STATE = 1;
+    }
+
 
 }
 

@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdexcept>
 #include <iostream>
+#include "open62541pp/open62541pp.h"
 
 struct PLC_DATA
 {
@@ -69,12 +70,13 @@ struct PLC_DATA
 
 class libOpcTrigaPLC {
 public:
-    libOpcTrigaPLC(std::string ipAddress, int port);
+    libOpcTrigaPLC(std::string ipAddress, std::string port);
     ~libOpcTrigaPLC();
 
     PLC_DATA get_all();
 
 private:
+    opcua::Client client;
     PLC_DATA plcData;
 };
 

@@ -40,12 +40,12 @@ PLC_DATA libOpcTrigaPLC::get_all()
 {
     try
     {
-        plcData.BarraReg = client.getNode(opcua::NodeId("ns=2;s=GVL.BarraReg")).readValueScalar<float>();
-        plcData.BarraCon = client.getNode(opcua::NodeId("ns=2;s=GVL.BarraCon")).readValueScalar<float>();
-        plcData.BarraSeg = client.getNode(opcua::NodeId("ns=2;s=GVL.BarraSeg")).readValueScalar<float>();
-        plcData.CLogALog = client.getNode(opcua::NodeId("ns=2;s=GVL.CLogALog")).readValueScalar<float>();
-        plcData.CLogALin = client.getNode(opcua::NodeId("ns=2;s=GVL.CLogALin")).readValueScalar<float>();
-        plcData.CLogAPer = client.getNode(opcua::NodeId("ns=2;s=GVL.CLogAPer")).readValueScalar<float>();
+        plcData.BarraReg = client.getNode({2, "GVL.BarraReg"}).readValueScalar<float>();
+        plcData.BarraCon = client.getNode({2, "GVL.BarraCon"}).readValueScalar<float>();
+        plcData.BarraSeg = client.getNode({2, "GVL.BarraSeg"}).readValueScalar<float>();
+        plcData.CLogALog = client.getNode({2, "GVL.CLogALog"}).readValueScalar<float>();
+        plcData.CLogALin = client.getNode({2, "GVL.CLogALin"}).readValueScalar<float>();
+        plcData.CLogAPer = client.getNode({2, "GVL.CLogAPer"}).readValueScalar<float>();
 
         plcData.STATE = 0;
     }
@@ -54,6 +54,6 @@ PLC_DATA libOpcTrigaPLC::get_all()
         plcData.STATE = 1;
     }
 
-
+    return plcData;
 }
 

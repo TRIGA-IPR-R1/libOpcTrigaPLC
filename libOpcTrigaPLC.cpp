@@ -19,17 +19,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "libOpcTrigaPLC.h"
 
-libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, std::string port)
+void libOpcTrigaPLC_license()
 {
-    address = "opc.tcp://" + ipAddress + ":" + port;
+    std::cout << "libOpcTrigaPLC    Copyright (C) 2024 Thalles Campagnani" << std::endl;
+    std::cout << "This program comes with ABSOLUTELY NO WARRANTY;" << std::endl;
+    std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
+    std::cout << "under certain conditions; For more details read the file LICENSE" << std::endl;
+    std::cout << "that came together with the library." << std::endl << std::endl;
+}
+
+bool libOpcTrigaPLC::tryConnect()
+{
     try
     {
-        client.connect(address);
+        client.connect(serverAddress);
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Erro ao tentar conectar na primeira tentativa: " << e.what() << std::endl;
+        std::cerr << "libOpcTrigaPLC::connect(): Erro ao tentar conectar" << e.what() << std::endl;
+        return 1;
     }
+    return 0;
+}
+
+libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, std::string port)
+{
+    serverAddress = "opc.tcp://" + ipAddress + ":" + port;
+    tryConnect();
 }
 
 libOpcTrigaPLC::~libOpcTrigaPLC()
@@ -41,19 +57,6 @@ PLC_DATA libOpcTrigaPLC::get_all()
 {
     try
     {
-        if !client.isConnected()
-        {
-            try
-            {
-                client.connect(address);
-            }
-            catch (const std::exception& e)
-            {
-                std::cerr << "Erro ao tentar conectar durante leitura: " << e.what() << std::endl;
-                plcData.STATE = 2;
-                return plcData;
-            }
-        }
         plcData.BarraReg        = client.getNode({2, "GVL.BarraReg"})    .readValueScalar<float>();
         plcData.BarraCon        = client.getNode({2, "GVL.BarraCon"})    .readValueScalar<float>();
         plcData.BarraSeg        = client.getNode({2, "GVL.BarraSeg"})    .readValueScalar<float>();
@@ -87,9 +90,16 @@ PLC_DATA libOpcTrigaPLC::get_all()
     }
     catch (const std::exception& e)
     {
-        
-        if !client.isConnected()    plcData.STATE = 1;
-        else                        plcData.STATE = 2;
+        if client.isConnected()
+        {
+            std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente conectado, porém erro ao adquirir dados!\n";
+            plcData.STATE = 1;
+        }
+        else
+        {
+            std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente desconectado!\n"
+            plcData.STATE = 2;
+        }
     }
 
     return plcData;

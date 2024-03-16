@@ -26,45 +26,51 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 struct PLC_DATA
 {
-    int   STATE     = 0;
+    int   STATE         = -1;   //Status do PLC:
+                                //-1 = Nenhuma tentativa de conexão realizada ainda.
+                                // 0 = Valores lidos com sucesso.
+                                // 1 = Erro de leitura
+                                // 2 = Servidor desconectado
+
     //
-    float BarraReg      = 0;//ns=2;s=GVL.BarraReg   //Barra de Regulação
-    float BarraCon      = 0;//ns=2;s=GVL.BarraCon   //Barra de Controle
-    float BarraSeg      = 0;//ns=2;s=GVL.BarraSeg   //Barra de Segurança
+    float BarraReg      = -1;//ns=2;s=GVL.BarraReg      //Barra de Regulação
+    float BarraCon      = -1;//ns=2;s=GVL.BarraCon      //Barra de Controle
+    float BarraSeg      = -1;//ns=2;s=GVL.BarraSeg      //Barra de Segurança
     //
-    float CLogALog      = 0;//ns=2;s=GVL.CLogALog   //Canal Logaritico - Aquisição Logarítima
-    float CLogALin      = 0;//ns=2;s=GVL.CLogALin   //Canal Logaritico - Aquisição Linear
-    float CLogAPer      = 0;//ns=2;s=GVL.CLogAPer   //Canal Logarítimo - Aquisição Período
+    float CLogALog      = -1;//ns=2;s=GVL.CLogALog      //Canal Logaritico - Aquisição Logarítima
+    float CLogALin      = -1;//ns=2;s=GVL.CLogALin      //Canal Logaritico - Aquisição Linear
+    float CLogAPer      = -1;//ns=2;s=GVL.CLogAPer      //Canal Logarítimo - Aquisição Período
     //
-    float CParALin      = 0;//ns=2;s=GVL.CParALin   //Canal Partida - Aquisição Linear
-    float CParALog      = 0;//ns=2;s=GVL.CParALog   //Canal Partida - Aquisição Log
-    float CParAPer      = 0;//ns=2;s=GVL.CParAPer   //Canal Partida - Aquisição Período
+    float CParALin      = -1;//ns=2;s=GVL.CParALin      //Canal Partida - Aquisição Linear
+    float CParALog      = -1;//ns=2;s=GVL.CParALog      //Canal Partida - Aquisição Log
+    float CParAPer      = -1;//ns=2;s=GVL.CParAPer      //Canal Partida - Aquisição Período
     //
-    float CLogARea      = 0;//ns=2;s=GVL.CLogARea   //Canal Logarítimo - Aquisição Reativímetro
-    float CLin          = 0;//ns=2;s=GVL.CLin       //Canal Linear
-    float CPer          = 0;//ns=2;s=GVL.CPer       //Canal Percentual
+    float CLogARea      = -1;//ns=2;s=GVL.CLogARea      //Canal Logarítimo - Aquisição Reativímetro
+    float CLin          = -1;//ns=2;s=GVL.CLin          //Canal Linear
+    float CPer          = -1;//ns=2;s=GVL.CPer          //Canal Percentual
     //
-    float SRadAre       = 0;//ns=2;s=GVL.SRadAre    //Sensor Radiação Área
-    float SRadEntPri    = 0;//ns=2;s=GVL.SRadEntPri //Sensor Radiação Entrada Primário
-    float SRadPoc       = 0;//ns=2;s=GVL.SRadPoc    //Sensor Radiação Poço
-    float SRadRes       = 0;//ns=2;s=GVL.SRadRes    //Sensor Radiação Resinas
-    float SRadSaiSec    = 0;//ns=2;s=GVL.SRadSaiSec //Sensor Radiação Saída Secundário
-    float SRadAer       = 0;//ns=2;s=GVL.SRadAer    //Sensor Radiação Aerossois
+    float SRadAre       = -1;//ns=2;s=GVL.SRadAre       //Sensor Radiação Área
+    float SRadEntPri    = -1;//ns=2;s=GVL.SRadEntPri    //Sensor Radiação Entrada Primário
+    float SRadPoc       = -1;//ns=2;s=GVL.SRadPoc       //Sensor Radiação Poço
+    float SRadRes       = -1;//ns=2;s=GVL.SRadRes       //Sensor Radiação Resinas
+    float SRadSaiSec    = -1;//ns=2;s=GVL.SRadSaiSec    //Sensor Radiação Saída Secundário
+    float SRadAer       = -1;//ns=2;s=GVL.SRadAer       //Sensor Radiação Aerossois
     //
-    float VasPri        = 0;//ns=2;s=GVL.VasPri     //Sensor Vazão Sistema Primário de Refrigeração
+    float VasPri        = -1;//ns=2;s=GVL.VasPri        //Sensor Vazão Sistema Primário de Refrigeração
     //
-    float SPt100Poco    = 0;//ns=2;s=GVL.SPt100Poco     //PT100_TEMP_POCO
-    float SPt100EntPri  = 0;//ns=2;s=GVL.SPt100EntPri   //PT100_TEMP_ENT_PRIM
-    float SPt100SaiPri  = 0;//ns=2;s=GVL.SPt100SaiPri   //PT100_TEMP_SAI_PRIM
-    float SPt100EntSec  = 0;//ns=2;s=GVL.SPt100EntSec   //PT100_TEMP_ENT_SEC
-    float SPt100SaiSec  = 0;//ns=2;s=GVL.SPt100SaiSec   //PT100_TEMP_SAI_SEC
-    float STpPoc1       = 0;//ns=2;s=GVL.STpPoc1        //TERMOPAR_1_POCO
-    float STpPoc2       = 0;//ns=2;s=GVL.STpPoc2        //TERMOPAR_2_POCO
-    float STpLen        = 0;//ns=2;s=GVL.STpLen         //TERMOPAR_3_LENCOL
-    float SConPoc       = 0;//ns=2;s=GVL.SConPoc        //COND_POCO
-    float SConSaiPri    = 0;//ns=2;s=GVL.SConSaiPri     //COND_SAI_PRI
+    float SPt100Poco    = -1;//ns=2;s=GVL.SPt100Poco    //PT100_TEMP_POCO
+    float SPt100EntPri  = -1;//ns=2;s=GVL.SPt100EntPri  //PT100_TEMP_ENT_PRIM
+    float SPt100SaiPri  = -1;//ns=2;s=GVL.SPt100SaiPri  //PT100_TEMP_SAI_PRIM
+    float SPt100EntSec  = -1;//ns=2;s=GVL.SPt100EntSec  //PT100_TEMP_ENT_SEC
+    float SPt100SaiSec  = -1;//ns=2;s=GVL.SPt100SaiSec  //PT100_TEMP_SAI_SEC
+    float STpPoc1       = -1;//ns=2;s=GVL.STpPoc1       //TERMOPAR_1_POCO
+    float STpPoc2       = -1;//ns=2;s=GVL.STpPoc2       //TERMOPAR_2_POCO
+    float STpLen        = -1;//ns=2;s=GVL.STpLen        //TERMOPAR_3_LENCOL
+    float SConPoc       = -1;//ns=2;s=GVL.SConPoc       //COND_POCO
+    float SConSaiPri    = -1;//ns=2;s=GVL.SConSaiPri    //COND_SAI_PRI
 };
 
+void libOpcTrigaPLC_license();
 
 class libOpcTrigaPLC {
 public:
@@ -72,11 +78,12 @@ public:
     ~libOpcTrigaPLC();
 
     PLC_DATA get_all();
+    bool tryConnect();
 
 private:
     opcua::Client client;
     PLC_DATA plcData;
-    std::string address;
+    std::string serverAddress;
 };
 
 #endif // LIB_OPC_TRIGA_PLC

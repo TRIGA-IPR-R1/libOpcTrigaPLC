@@ -21,13 +21,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, std::string port)
 {
+    address = "opc.tcp://" + ipAddress + ":" + port;
     try
     {
-        client.connect("opc.tcp://" + ipAddress + ":" + port);
+        client.connect(address);
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Erro: " << e.what() << std::endl;
+        std::cerr << "Erro ao tentar conectar na primeira tentativa: " << e.what() << std::endl;
     }
 }
 
@@ -40,18 +41,55 @@ PLC_DATA libOpcTrigaPLC::get_all()
 {
     try
     {
-        plcData.BarraReg = client.getNode({2, "GVL.BarraReg"}).readValueScalar<float>();
-        plcData.BarraCon = client.getNode({2, "GVL.BarraCon"}).readValueScalar<float>();
-        plcData.BarraSeg = client.getNode({2, "GVL.BarraSeg"}).readValueScalar<float>();
-        plcData.CLogALog = client.getNode({2, "GVL.CLogALog"}).readValueScalar<float>();
-        plcData.CLogALin = client.getNode({2, "GVL.CLogALin"}).readValueScalar<float>();
-        plcData.CLogAPer = client.getNode({2, "GVL.CLogAPer"}).readValueScalar<float>();
-
+        if !client.isConnected()
+        {
+            try
+            {
+                client.connect(address);
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Erro ao tentar conectar durante leitura: " << e.what() << std::endl;
+                plcData.STATE = 2;
+                return plcData;
+            }
+        }
+        plcData.BarraReg        = client.getNode({2, "GVL.BarraReg"})    .readValueScalar<float>();
+        plcData.BarraCon        = client.getNode({2, "GVL.BarraCon"})    .readValueScalar<float>();
+        plcData.BarraSeg        = client.getNode({2, "GVL.BarraSeg"})    .readValueScalar<float>();
+        plcData.CLogALog        = client.getNode({2, "GVL.CLogALog"})    .readValueScalar<float>();
+        plcData.CLogALin        = client.getNode({2, "GVL.CLogALin"})    .readValueScalar<float>();
+        plcData.CLogAPer        = client.getNode({2, "GVL.CLogAPer"})    .readValueScalar<float>();
+        plcData.CParALin        = client.getNode({2, "GVL.CParALin"})    .readValueScalar<float>();
+        plcData.CParALog        = client.getNode({2, "GVL.CParALog"})    .readValueScalar<float>();
+        plcData.CParAPer        = client.getNode({2, "GVL.CParAPer"})    .readValueScalar<float>();
+        plcData.CLogARea        = client.getNode({2, "GVL.CLogARea"})    .readValueScalar<float>();
+        plcData.CLin            = client.getNode({2, "GVL.CLin"})        .readValueScalar<float>();
+        plcData.CPer            = client.getNode({2, "GVL.CPer"})        .readValueScalar<float>();
+        plcData.SRadAre         = client.getNode({2, "GVL.SRadAre"})     .readValueScalar<float>();
+        plcData.SRadEntPri      = client.getNode({2, "GVL.SRadEntPri"})  .readValueScalar<float>();
+        plcData.SRadPoc         = client.getNode({2, "GVL.SRadPoc"})     .readValueScalar<float>();
+        plcData.SRadRes         = client.getNode({2, "GVL.SRadRes"})     .readValueScalar<float>();
+        plcData.SRadSaiSec      = client.getNode({2, "GVL.SRadSaiSec"})  .readValueScalar<float>();
+        plcData.SRadAer         = client.getNode({2, "GVL.SRadAer"})     .readValueScalar<float>();
+        plcData.VasPri          = client.getNode({2, "GVL.VasPri"})      .readValueScalar<float>();
+        plcData.SPt100Poco      = client.getNode({2, "GVL.SPt100Poco"})  .readValueScalar<float>();
+        plcData.SPt100EntPri    = client.getNode({2, "GVL.SPt100EntPri"}).readValueScalar<float>();
+        plcData.SPt100SaiPri    = client.getNode({2, "GVL.SPt100SaiPri"}).readValueScalar<float>();
+        plcData.SPt100EntSec    = client.getNode({2, "GVL.SPt100EntSec"}).readValueScalar<float>();
+        plcData.SPt100SaiSec    = client.getNode({2, "GVL.SPt100SaiSec"}).readValueScalar<float>();
+        plcData.STpPoc1         = client.getNode({2, "GVL.STpPoc1"})     .readValueScalar<float>();
+        plcData.STpPoc2         = client.getNode({2, "GVL.STpPoc2"})     .readValueScalar<float>();
+        plcData.STpLen          = client.getNode({2, "GVL.STpLen"})      .readValueScalar<float>();
+        plcData.SConPoc         = client.getNode({2, "GVL.SConPoc"})     .readValueScalar<float>();
+        plcData.SConSaiPri      = client.getNode({2, "GVL.SConSaiPri"})  .readValueScalar<float>();
         plcData.STATE = 0;
     }
     catch (const std::exception& e)
     {
-        plcData.STATE = 1;
+        
+        if !client.isConnected()    plcData.STATE = 1;
+        else                        plcData.STATE = 2;
     }
 
     return plcData;

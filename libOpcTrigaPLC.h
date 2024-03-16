@@ -36,7 +36,6 @@ struct PLC_DATA
     float CLogALin      = 0;//ns=2;s=GVL.CLogALin   //Canal Logaritico - Aquisição Linear
     float CLogAPer      = 0;//ns=2;s=GVL.CLogAPer   //Canal Logarítimo - Aquisição Período
     //
-    /*
     float CParALin      = 0;//ns=2;s=GVL.CParALin   //Canal Partida - Aquisição Linear
     float CParALog      = 0;//ns=2;s=GVL.CParALog   //Canal Partida - Aquisição Log
     float CParAPer      = 0;//ns=2;s=GVL.CParAPer   //Canal Partida - Aquisição Período
@@ -64,7 +63,6 @@ struct PLC_DATA
     float STpLen        = 0;//ns=2;s=GVL.STpLen         //TERMOPAR_3_LENCOL
     float SConPoc       = 0;//ns=2;s=GVL.SConPoc        //COND_POCO
     float SConSaiPri    = 0;//ns=2;s=GVL.SConSaiPri     //COND_SAI_PRI
-    */
 };
 
 
@@ -78,6 +76,7 @@ public:
 private:
     opcua::Client client;
     PLC_DATA plcData;
+    std::string address;
 };
 
 #endif // LIB_OPC_TRIGA_PLC

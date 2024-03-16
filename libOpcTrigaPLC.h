@@ -84,6 +84,7 @@ private:
     opcua::Client client;
     PLC_DATA plcData;
     std::string serverAddress;
+    std::string stdErrorMsg(std::string functionName, std::string errorMsg, std::string exptionMsg);
 };
 
 #endif // LIB_OPC_TRIGA_PLC

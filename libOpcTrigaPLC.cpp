@@ -36,10 +36,25 @@ bool libOpcTrigaPLC::tryConnect()
     }
     catch (const std::exception& e)
     {
-        std::cerr << "libOpcTrigaPLC::connect(): Erro ao tentar conectar" << e.what() << std::endl;
+        std::cerr << stdErrorMsg("tryConnect()", "Erro ao tentar conectar", e.what());
         return 1;
     }
     return 0;
+}
+
+std::string libOpcTrigaPLC::stdErrorMsg(std::string functionName, std::string errorMsg, std::string exptionMsg)
+{
+    std::string msg =   "ERROR in libOpcTrigaPLC::" + 
+                        functionName + 
+                        "\n\tError type: " + 
+                        errorMsg;
+    if (exptionMsg!="") 
+    {
+        msg +=          "\n\tError code: " + 
+                        exptionMsg;
+    }
+    msg += "\n";
+    return msg;
 }
 
 libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, std::string port)
@@ -92,12 +107,12 @@ PLC_DATA libOpcTrigaPLC::get_all()
     {
         if (client.isConnected())
         {
-            std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente conectado, porém erro ao adquirir dados!\n";
+            std::cerr << stdErrorMsg("get_all()", "Cliente conectado, porém erro ao adquirir dados", e.what());
             plcData.STATE = 1;
         }
         else
         {
-            std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente desconectado!\n";
+            std::cerr << stdErrorMsg("get_all()", "Cliente desconectado", e.what());
             plcData.STATE = 2;
         }
     }

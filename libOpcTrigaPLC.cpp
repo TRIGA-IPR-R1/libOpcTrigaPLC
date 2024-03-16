@@ -90,7 +90,7 @@ PLC_DATA libOpcTrigaPLC::get_all()
     }
     catch (const std::exception& e)
     {
-        if client.isConnected()
+        if (client.isConnected())
         {
             std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente conectado, porém erro ao adquirir dados!\n";
             plcData.STATE = 1;

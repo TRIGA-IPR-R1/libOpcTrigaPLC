@@ -97,7 +97,7 @@ PLC_DATA libOpcTrigaPLC::get_all()
         }
         else
         {
-            std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente desconectado!\n"
+            std::cerr << "ERRO libOpcTrigaPLC::get_all(): Cliente desconectado!\n";
             plcData.STATE = 2;
         }
     }

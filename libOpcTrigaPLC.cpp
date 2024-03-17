@@ -57,9 +57,9 @@ std::string libOpcTrigaPLC::stdErrorMsg(std::string functionName, std::string er
     return msg;
 }
 
-libOpcTrigaPLC::libOpcTrigaPLC(std::string ipAddress, std::string port)
+libOpcTrigaPLC::libOpcTrigaPLC(std::string address)
 {
-    serverAddress = "opc.tcp://" + ipAddress + ":" + port;
+    serverAddress = "opc.tcp://" + address;
     tryConnect();
 }
 

@@ -74,7 +74,7 @@ void libOpcTrigaPLC_license();
 
 class libOpcTrigaPLC {
 public:
-    libOpcTrigaPLC(std::string ipAddress, std::string port);
+    libOpcTrigaPLC(std::string address);
     ~libOpcTrigaPLC();
 
     PLC_DATA get_all();

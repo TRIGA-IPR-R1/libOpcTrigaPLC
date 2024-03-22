@@ -72,35 +72,35 @@ PLC_DATA libOpcTrigaPLC::get_all()
 {
     try
     {
-        plcData.BarraReg        = client.getNode({2, "GVL.BarraReg"})    .readValueScalar<float>();
-        plcData.BarraCon        = client.getNode({2, "GVL.BarraCon"})    .readValueScalar<float>();
-        plcData.BarraSeg        = client.getNode({2, "GVL.BarraSeg"})    .readValueScalar<float>();
-        plcData.CLogALog        = client.getNode({2, "GVL.CLogALog"})    .readValueScalar<float>();
-        plcData.CLogALin        = client.getNode({2, "GVL.CLogALin"})    .readValueScalar<float>();
-        plcData.CLogAPer        = client.getNode({2, "GVL.CLogAPer"})    .readValueScalar<float>();
-        plcData.CParALin        = client.getNode({2, "GVL.CParALin"})    .readValueScalar<float>();
-        plcData.CParALog        = client.getNode({2, "GVL.CParALog"})    .readValueScalar<float>();
-        plcData.CParAPer        = client.getNode({2, "GVL.CParAPer"})    .readValueScalar<float>();
-        plcData.CLogARea        = client.getNode({2, "GVL.CLogARea"})    .readValueScalar<float>();
-        plcData.CLin            = client.getNode({2, "GVL.CLin"})        .readValueScalar<float>();
-        plcData.CPer            = client.getNode({2, "GVL.CPer"})        .readValueScalar<float>();
-        plcData.SRadAre         = client.getNode({2, "GVL.SRadAre"})     .readValueScalar<float>();
-        plcData.SRadEntPri      = client.getNode({2, "GVL.SRadEntPri"})  .readValueScalar<float>();
-        plcData.SRadPoc         = client.getNode({2, "GVL.SRadPoc"})     .readValueScalar<float>();
-        plcData.SRadRes         = client.getNode({2, "GVL.SRadRes"})     .readValueScalar<float>();
-        plcData.SRadSaiSec      = client.getNode({2, "GVL.SRadSaiSec"})  .readValueScalar<float>();
-        plcData.SRadAer         = client.getNode({2, "GVL.SRadAer"})     .readValueScalar<float>();
-        plcData.VasPri          = client.getNode({2, "GVL.VasPri"})      .readValueScalar<float>();
-        plcData.SPt100Poco      = client.getNode({2, "GVL.SPt100Poco"})  .readValueScalar<float>();
-        plcData.SPt100EntPri    = client.getNode({2, "GVL.SPt100EntPri"}).readValueScalar<float>();
-        plcData.SPt100SaiPri    = client.getNode({2, "GVL.SPt100SaiPri"}).readValueScalar<float>();
-        plcData.SPt100EntSec    = client.getNode({2, "GVL.SPt100EntSec"}).readValueScalar<float>();
-        plcData.SPt100SaiSec    = client.getNode({2, "GVL.SPt100SaiSec"}).readValueScalar<float>();
-        plcData.STpPoc1         = client.getNode({2, "GVL.STpPoc1"})     .readValueScalar<float>();
-        plcData.STpPoc2         = client.getNode({2, "GVL.STpPoc2"})     .readValueScalar<float>();
-        plcData.STpLen          = client.getNode({2, "GVL.STpLen"})      .readValueScalar<float>();
-        plcData.SConPoc         = client.getNode({2, "GVL.SConPoc"})     .readValueScalar<float>();
-        plcData.SConSaiPri      = client.getNode({2, "GVL.SConSaiPri"})  .readValueScalar<float>();
+        plcData.BarraReg        = client.getNode({2, "IoConfig_Globals_Mapping.inBarraReg (%IW5)"})   .readValueScalar<int16_t>();
+        plcData.BarraCon        = client.getNode({2, "IoConfig_Globals_Mapping.inBarraCon (%IW6)"})   .readValueScalar<int16_t>();
+        plcData.BarraSeg        = client.getNode({2, "IoConfig_Globals_Mapping.inBarraSeg (%IW7)"})   .readValueScalar<int16_t>();
+        plcData.CLogALog        = client.getNode({2, "IoConfig_Globals_Mapping.inCLogALog (%IW17)"})  .readValueScalar<int16_t>();
+        plcData.CLogALin        = client.getNode({2, "IoConfig_Globals_Mapping.inCLogALin (%IW18)"})  .readValueScalar<int16_t>();
+        plcData.CLogAPer        = client.getNode({2, "IoConfig_Globals_Mapping.inCLogAPer (%IW19)"})  .readValueScalar<int16_t>();
+        plcData.CParALin        = client.getNode({2, "IoConfig_Globals_Mapping.inCParALin (%IW14)"})  .readValueScalar<int16_t>();
+        plcData.CParALog        = client.getNode({2, "IoConfig_Globals_Mapping.inCParALog (%IW15)"})  .readValueScalar<int16_t>();
+        plcData.CParAPer        = client.getNode({2, "IoConfig_Globals_Mapping.inCParAPer (%IW16)"})  .readValueScalar<int16_t>();
+        plcData.CLogARea        = client.getNode({2, "IoConfig_Globals_Mapping.inCLogARea (%IW20)"})  .readValueScalar<int16_t>();
+        plcData.CLin            = client.getNode({2, "IoConfig_Globals_Mapping.inCLin (%IW25)"})      .readValueScalar<int16_t>();
+        plcData.CPer            = client.getNode({2, "IoConfig_Globals_Mapping.inCPer (%IW26)"})      .readValueScalar<int16_t>();
+        plcData.SRadAre         = client.getNode({2, "IoConfig_Globals_Mapping.inSRadAre (%IW27)"})   .readValueScalar<int16_t>();
+        plcData.SRadEntPri      = client.getNode({2, "IoConfig_Globals_Mapping.inSRadEntPri (%IW28)"}).readValueScalar<int16_t>();
+        plcData.SRadPoc         = client.getNode({2, "IoConfig_Globals_Mapping.inSRadPoc (%IW29)"})   .readValueScalar<int16_t>();
+        plcData.SRadRes         = client.getNode({2, "IoConfig_Globals_Mapping.inSRadRes (%IW30)"})   .readValueScalar<int16_t>();
+        plcData.SRadSaiSec      = client.getNode({2, "IoConfig_Globals_Mapping.inSRadSaiSec (%IW31)"}).readValueScalar<int16_t>();
+        plcData.SRadAer         = client.getNode({2, "IoConfig_Globals_Mapping.inSRadAer (%IW32)"})   .readValueScalar<int16_t>();
+        plcData.SVasPri         = client.getNode({2, "IoConfig_Globals_Mapping.inSVasPri (%IW49)"})   .readValueScalar<int16_t>();
+        plcData.SPt100Poco      = client.getNode({2, "GVL.SPt100Poco (%MD1)"})                        .readValueScalar<float>();
+        plcData.SPt100EntPri    = client.getNode({2, "GVL.SPt100EntPri (%MD2)"})                      .readValueScalar<float>();
+        plcData.SPt100SaiPri    = client.getNode({2, "GVL.SPt100SaiPri (%MD3)"})                      .readValueScalar<float>();
+        plcData.SPt100EntSec    = client.getNode({2, "GVL.SPt100EntSec (%MD4)"})                      .readValueScalar<float>();
+        plcData.SPt100SaiSec    = client.getNode({2, "GVL.SPt100SaiSec (%MD5)"})                      .readValueScalar<float>();
+        plcData.STpPoc1         = client.getNode({2, "GVL.STpPoc1 (%MD6)"})                           .readValueScalar<float>();
+        plcData.STpPoc2         = client.getNode({2, "GVL.STpPoc2 (%MD7)"})                           .readValueScalar<float>();
+        plcData.STpLen          = client.getNode({2, "GVL.STpLen (%MD8)"})                            .readValueScalar<float>();
+        plcData.SConPoc         = client.getNode({2, "GVL.SConPoc (%MD9)"})                           .readValueScalar<float>();
+        plcData.SConSaiPri      = client.getNode({2, "GVL.SConSaiPri (%MD10)"})                       .readValueScalar<float>();
         plcData.STATE = 0;
     }
     catch (const std::exception& e)

@@ -83,6 +83,7 @@ PLC_DATA libOpcTrigaPLC::get_all()
         plcData.CParAPer        = client.getNode({2, "IoConfig_Globals_Mapping.inCParAPer (%IW16)"})  .readValueScalar<int16_t>();
         plcData.CLogARea        = client.getNode({2, "IoConfig_Globals_Mapping.inCLogARea (%IW20)"})  .readValueScalar<int16_t>();
         plcData.CLin            = client.getNode({2, "IoConfig_Globals_Mapping.inCLin (%IW25)"})      .readValueScalar<int16_t>();
+        plcData.CLinScale       = client.getNode({2, "IoConfig_Globals_Mapping.inModulo_D0 (%IW0)"})  .readValueScalar<u_int16_t>() & 0b00000111 - 2;
         plcData.CPer            = client.getNode({2, "IoConfig_Globals_Mapping.inCPer (%IW26)"})      .readValueScalar<int16_t>();
         plcData.SRadAre         = client.getNode({2, "IoConfig_Globals_Mapping.inSRadAre (%IW27)"})   .readValueScalar<int16_t>();
         plcData.SRadEntPri      = client.getNode({2, "IoConfig_Globals_Mapping.inSRadEntPri (%IW28)"}).readValueScalar<int16_t>();

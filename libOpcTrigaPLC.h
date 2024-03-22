@@ -44,6 +44,7 @@ struct PLC_DATA
     float CParAPer      = -1;//ns=2;IoConfig_Globals_Mapping.inCParAPer (%IW16)     //Canal Partida - Aquisição Período
     float CLogARea      = -1;//ns=2;IoConfig_Globals_Mapping.inCLogARea (%IW20)     //Canal Logarítimo - Aquisição Reativímetro
     float CLin          = -1;//ns=2;IoConfig_Globals_Mapping.inCLin (%IW25)         //Canal Linear
+    int   CLinScale     = -1;//ns=2;IoConfig_Globals_Mapping.inModulo_D0 (%IW0)     //Canal Linear - Escala (Bit 0, 1 e 3)
     float CPer          = -1;//ns=2;IoConfig_Globals_Mapping.inCPer (%IW26)         //Canal Percentual
     float SRadAre       = -1;//ns=2;IoConfig_Globals_Mapping.inSRadAre (%IW27)      //Sensor Radiação Área
     float SRadEntPri    = -1;//ns=2;IoConfig_Globals_Mapping.inSRadEntPri (%IW28)   //Sensor Radiação Entrada Primário

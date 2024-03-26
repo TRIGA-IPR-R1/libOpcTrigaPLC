@@ -32,7 +32,6 @@
           name = "libOpcTrigaPLC";
           src = ./.;
           cmakeFlags = [
-            "-DDONT_INSTALL_CONF=1"
             "-DFETCHCONTENT_SOURCE_DIR_OPEN62541PP=${open26541pp}"
           ];
           inherit nativeBuildInputs;

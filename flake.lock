@@ -37,11 +37,11 @@
     "open26541pp": {
       "flake": false,
       "locked": {
-        "lastModified": 1711299152,
-        "narHash": "sha256-917fs4FsfKEgfbxCUS7ipcNVj287y3s5t0tmauW7SXE=",
+        "lastModified": 1711487832,
+        "narHash": "sha256-E9zXyNyOTY+vJTMFlkXR97T18kHWxPPXxMYmJmyReKQ=",
         "ref": "refs/heads/master",
-        "rev": "595472a1577bf50f1c5ef21a95252331a11cf1d4",
-        "revCount": 570,
+        "rev": "93793a67ba315dc2ea4101333722fb124d1bcc8e",
+        "revCount": 573,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/open62541pp/open62541pp?submodules=true"

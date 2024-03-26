@@ -31,7 +31,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES
     ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
 
-set(LIBOPCTRIGAPLC_SRC libOpcTrigaPLC.cpp)
+set(LIBOPCTRIGAPLC_SRC src/libOpcTrigaPLC.cpp)
 
 add_library(libOpcTrigaPLC ${LIBOPCTRIGAPLC_SRC})
 add_library(libOpcTrigaPLC::libOpcTrigaPLC ALIAS libOpcTrigaPLC)
@@ -39,7 +39,11 @@ add_library(libOpcTrigaPLC::libOpcTrigaPLC ALIAS libOpcTrigaPLC)
 target_include_directories(libOpcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(libOpcTrigaPLC PRIVATE open62541pp)
 
-install(FILES ${PROJECT_SOURCE_DIR}/libOpcTrigaPLC.h
+add_executable(test src/test.cpp)
+target_include_directories(test PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(test PRIVATE libOpcTrigaPLC open62541pp)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include/libOpcTrigaPLC/)
 install(
   TARGETS libOpcTrigaPLC
@@ -61,4 +65,8 @@ install(
   TARGETS open62541
   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+install(
+  TARGETS test
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

@@ -68,3 +68,14 @@ install(
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 install(TARGETS test RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+set(LibOpcTrigaPLC_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/include/libOpcTrigaPLC)
+set(LibOpcTrigaPLC_LIBRARIES
+    ${CMAKE_INSTALL_PREFIX}/lib/libopcTrigaPLC.a
+    ${CMAKE_INSTALL_PREFIX}/lib/libopen62541pp.a
+    ${CMAKE_INSTALL_PREFIX}/lib/libopen62541.a)
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/resources/LibOpcTrigaPLCConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/resources/LibOpcTrigaPLCConfig.cmake @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/resources/LibOpcTrigaPLCConfig.cmake
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/LibOpcTrigaPLC)

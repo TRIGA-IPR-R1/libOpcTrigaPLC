@@ -12,14 +12,9 @@ project(
 FetchContent_Declare(
   open62541pp
   GIT_REPOSITORY https://github.com/open62541pp/open62541pp
-  GIT_TAG master)
-
-FetchContent_GetProperties(open62541pp)
-if(NOT open62541pp_POPULATED)
-  FetchContent_Populate(open62541pp)
-  add_subdirectory(${open62541pp_SOURCE_DIR} ${open62541pp_BINARY_DIR}
-                   EXCLUDE_FROM_ALL)
-endif()
+  GIT_TAG master
+  EXCLUDE_FROM_ALL)
+FetchContent_MakeAvailable(open62541pp)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
@@ -36,13 +31,10 @@ set(LIBOPCTRIGAPLC_SRC src/libOpcTrigaPLC.cpp)
 add_library(opcTrigaPLC ${LIBOPCTRIGAPLC_SRC})
 add_library(opcTrigaPLC::opcTrigaPLC ALIAS opcTrigaPLC)
 
-target_include_directories(
-  opcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include
-                     ${open62541pp_SOURCE_DIR}/include)
+target_include_directories(opcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(opcTrigaPLC PUBLIC open62541pp)
 
 add_executable(opctrigaplc-test src/test.cpp)
-target_include_directories(opctrigaplc-test PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(opctrigaplc-test PRIVATE opcTrigaPLC)
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
@@ -69,7 +61,8 @@ install(
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
-install(TARGETS opctrigaplc-test RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(TARGETS opctrigaplc-test
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 set(LibOpcTrigaPLC_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/include/libOpcTrigaPLC)
 set(LibOpcTrigaPLC_LIBRARIES

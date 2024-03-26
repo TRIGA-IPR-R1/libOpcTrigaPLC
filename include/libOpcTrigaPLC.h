@@ -22,7 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <stdexcept>
 #include <iostream>
-#include "open62541pp/open62541pp.h"
+#include <open62541pp/open62541pp.h>
 
 struct PLC_DATA
 {

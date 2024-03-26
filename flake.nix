@@ -1,33 +1,33 @@
 {
-  description = "libOpcTrigaPLC";
+  description = "A library to comunicate with the PLC in the Triga Control Table using OPC client";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    open26541pp.url = https://github.com/open62541pp/open62541pp?submodules=true;
+    open26541pp.url = "https://github.com/open62541pp/open62541pp?submodules=true";
     open26541pp.flake = false;
     open26541pp.type = "git";
     open26541pp.submodules = true;
   };
 
-  outputs = { self, nixpkgs, flake-utils, open26541pp, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs = { nixpkgs, flake-utils, open26541pp, ... }:
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        nativeBuildInputs = with pkgs; [ python3 ];
+        nativeBuildInputs = with pkgs; [
+          busybox
+          cmake
+          git
+          pkg-config
+          python3
+          stdenv
+        ];
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            busybox
-            cmake
-            git
-            pkg-config
-            stdenv
-          ] ++ nativeBuildInputs;
+          buildInputs = nativeBuildInputs;
         };
-
         packages.default = pkgs.stdenv.mkDerivation {
           name = "libOpcTrigaPLC";
           src = ./.;
@@ -35,12 +35,7 @@
             "-DDONT_INSTALL_CONF=1"
             "-DFETCHCONTENT_SOURCE_DIR_OPEN62541PP=${open26541pp}"
           ];
-          nativeBuildInputs = with pkgs; [
-            cmake
-            pkg-config
-          ] ++ nativeBuildInputs;
-          buildInputs = with pkgs;[
-          ];
+          inherit nativeBuildInputs;
         };
       }
     );

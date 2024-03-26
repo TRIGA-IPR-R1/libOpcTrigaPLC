@@ -20,11 +20,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1710377395,
-        "narHash": "sha256-KMubsUWtVr7L55pXMBibBDBdmk3xrjbBPduc0E8z28c=",
+        "lastModified": 1711231723,
+        "narHash": "sha256-dARJQ8AJOv6U+sdRePkbcVyVbXJTi1tReCrkkOeusiA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "db001797591bf76f7b8d4c4ed3b49233391e0c97",
+        "rev": "e1d501922fd7351da4200e1275dfcf5faaad1220",
         "type": "github"
       },
       "original": {
@@ -37,11 +37,11 @@
     "open26541pp": {
       "flake": false,
       "locked": {
-        "lastModified": 1710177455,
-        "narHash": "sha256-UYpPQnshMHqqKSMWU37s5cL6cU8yHlL3DaN/e4tPb7w=",
+        "lastModified": 1711299152,
+        "narHash": "sha256-917fs4FsfKEgfbxCUS7ipcNVj287y3s5t0tmauW7SXE=",
         "ref": "refs/heads/master",
-        "rev": "27cc0726841ba249bc0fe9ea3b34b0466cfe1e2d",
-        "revCount": 540,
+        "rev": "595472a1577bf50f1c5ef21a95252331a11cf1d4",
+        "revCount": 570,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/open62541pp/open62541pp?submodules=true"

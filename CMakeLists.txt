@@ -36,7 +36,9 @@ set(LIBOPCTRIGAPLC_SRC src/libOpcTrigaPLC.cpp)
 add_library(opcTrigaPLC ${LIBOPCTRIGAPLC_SRC})
 add_library(opcTrigaPLC::opcTrigaPLC ALIAS opcTrigaPLC)
 
-target_include_directories(opcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(
+  opcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include
+                     ${open62541pp_SOURCE_DIR}/include)
 target_link_libraries(opcTrigaPLC PUBLIC open62541pp)
 
 add_executable(test src/test.cpp)

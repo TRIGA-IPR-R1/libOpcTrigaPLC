@@ -39,7 +39,7 @@ add_library(libOpcTrigaPLC::libOpcTrigaPLC ALIAS libOpcTrigaPLC)
 target_include_directories(libOpcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(libOpcTrigaPLC PRIVATE open62541pp)
 
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+install(FILES ${PROJECT_SOURCE_DIR}/libOpcTrigaPLC.h
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include/libOpcTrigaPLC/)
 install(
   TARGETS libOpcTrigaPLC

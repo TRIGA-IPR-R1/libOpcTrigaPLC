@@ -17,8 +17,8 @@ FetchContent_Declare(
 FetchContent_GetProperties(open62541pp)
 if(NOT open62541pp_POPULATED)
   FetchContent_Populate(open62541pp)
-  add_subdirectory(${open62541pp_SOURCE_DIR}
-                   ${open62541pp_BINARY_DIR} EXCLUDE_FROM_ALL)
+  add_subdirectory(${open62541pp_SOURCE_DIR} ${open62541pp_BINARY_DIR}
+                   EXCLUDE_FROM_ALL)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -33,20 +33,20 @@ set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES
 
 set(LIBOPCTRIGAPLC_SRC src/libOpcTrigaPLC.cpp)
 
-add_library(libOpcTrigaPLC ${LIBOPCTRIGAPLC_SRC})
-add_library(libOpcTrigaPLC::libOpcTrigaPLC ALIAS libOpcTrigaPLC)
+add_library(opcTrigaPLC ${LIBOPCTRIGAPLC_SRC})
+add_library(opcTrigaPLC::opcTrigaPLC ALIAS opcTrigaPLC)
 
-target_include_directories(libOpcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(libOpcTrigaPLC PRIVATE open62541pp)
+target_include_directories(opcTrigaPLC PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(opcTrigaPLC PUBLIC open62541pp)
 
 add_executable(test src/test.cpp)
-target_include_directories(test PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(test PRIVATE libOpcTrigaPLC open62541pp)
+target_include_directories(test PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(test PRIVATE opcTrigaPLC)
 
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include/libOpcTrigaPLC/)
 install(
-  TARGETS libOpcTrigaPLC
+  TARGETS opcTrigaPLC
   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
@@ -67,6 +67,4 @@ install(
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
-install(
-  TARGETS test
-  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(TARGETS test RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

@@ -21,13 +21,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <stdexcept>
+#include <chrono>
 
 struct PLC_DATA {
   int STATE = -1; // Status do PLC:
-                  //-1 = Nenhuma tentativa de conexão realizada ainda.
+                  // -1 = Nenhuma tentativa de conexão realizada ainda.
                   //  0 = Valores lidos com sucesso.
                   //  1 = Erro de leitura
                   //  2 = Servidor desconectado
+  std::chrono::system_clock::time_point TIME;
   //
   float BarraReg = -1; // ns=2;IoConfig_Globals_Mapping.inBarraReg (%IW5)
                        // //Barra de Regulação

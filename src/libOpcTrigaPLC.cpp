@@ -128,6 +128,7 @@ PLC_DATA libOpcTrigaPLC::get_all()
         }
     }
 
+    this->_p->plcData.TIME = std::chrono::system_clock::now();
     return this->_p->plcData;
 }
 

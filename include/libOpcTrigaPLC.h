@@ -87,6 +87,51 @@ struct PLC_DATA {
   float SConSaiPri = -1; // ns=2;s=GVL.SConSaiPri (%MD10) //COND_SAI_PRI
 };
 
+struct CONV_LIN
+{
+  float x0 = 0;
+  float x1 = 1;
+  float y0 = 0;
+  float y1 = 1;
+};
+
+struct CONV_LOG
+{
+
+};
+
+struct CONV_PER
+{
+
+};
+
+struct CONV_REA
+{
+
+};
+
+struct CONV_PLC {
+  CONV_LIN BarraReg;
+  CONV_LIN BarraCon;
+  CONV_LIN BarraSeg;
+  CONV_LIN CLogALin;
+  CONV_LOG CLogALog;
+  CONV_PER CLogAPer;
+  CONV_LIN CParALin;
+  CONV_LOG CParALog;
+  CONV_PER CParAPer;
+  CONV_REA CLogARea;
+  CONV_LIN CLin;
+  CONV_LIN CPer;
+  CONV_LOG SRadAre;
+  CONV_LOG SRadEntPri;
+  CONV_LOG SRadPoc;
+  CONV_LOG SRadRes;
+  CONV_LOG SRadSaiSec;
+  CONV_LOG SRadAer;
+  CONV_LIN SVasPri;
+};
+
 void libOpcTrigaPLC_license();
 
 struct libOpcTrigaPLC_private;
@@ -94,8 +139,14 @@ struct libOpcTrigaPLC_private;
 class libOpcTrigaPLC {
 public:
   libOpcTrigaPLC(std::string address);
+  libOpcTrigaPLC(std::string address, std::string filename);
   ~libOpcTrigaPLC();
 
+  CONV_PLC fatorConv;
+  CONV_PLC readFatorConvFile(std::string filename);
+
+  PLC_DATA convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv);
+  PLC_DATA get_all_conv();
   PLC_DATA get_all();
   bool tryConnect();
 
@@ -104,4 +155,10 @@ private:
 
   std::string stdErrorMsg(std::string functionName, std::string errorMsg,
                           std::string exptionMsg);
+
+  float convLin(float x, CONV_LIN conv);
+  float convLog(float x, CONV_LOG conv);
+  float convPer(float x, CONV_PER conv);
+  float convRea(float x, CONV_REA conv);
+  
 };

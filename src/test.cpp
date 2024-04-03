@@ -51,14 +51,14 @@ int main(int argc, char* argv[])
 {
     if (argc != 4)
     {
-        std::cerr << "Usage: " << argv[0] << " <address> <qtd_of_reads>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <address> <filename> <qtd_of_reads>" << std::endl;
         return 1;
     }
 
     try
     {
-        libOpcTrigaPLC plc(argv[1]);
-        for(int i=0;i<std::stoi(argv[2]);i++)
+        libOpcTrigaPLC plc(argv[1], argv[2]);
+        for(int i=0;i<std::stoi(argv[3]);i++)
         {
             PLC_DATA data = plc.get_all();
             std::cout << getTimeString() << "\t" << data.CLogALog << std::endl;

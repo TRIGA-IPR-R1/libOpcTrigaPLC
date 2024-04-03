@@ -72,10 +72,92 @@ libOpcTrigaPLC::libOpcTrigaPLC(std::string address)
     tryConnect();
 }
 
+libOpcTrigaPLC::libOpcTrigaPLC(std::string address, std::string filename)
+{
+    this->_p = new libOpcTrigaPLC_private;
+    this->_p->serverAddress = "opc.tcp://" + address;
+    tryConnect();
+    this->fatorConv = this->readFatorConvFile(filename);
+}
+
 libOpcTrigaPLC::~libOpcTrigaPLC()
 {
     this->_p->client.disconnect();
     delete this->_p;
+}
+
+//Função para converter o valor de x através de 2 pontos conhecidos. 
+float libOpcTrigaPLC::convLin(float x, CONV_LIN conv)
+{
+    return x * (conv.y1-conv.y0) / (conv.x1-conv.x0) + (conv.y0*conv.x1-conv.y1*conv.x0) / (conv.x1-conv.x0);
+}
+
+//Função para converter o valor de x, sendo x logarítimo. 
+float libOpcTrigaPLC::convLog(float x, CONV_LOG conv)
+{
+    return x;
+}
+
+//Função para converter o valor de x, sendo x sinal de período. 
+float libOpcTrigaPLC::convPer(float x, CONV_PER conv)
+{
+    return x;
+}
+
+float libOpcTrigaPLC::convRea(float x, CONV_REA conv)
+{
+    return x;
+}
+
+//Função para converter os dados brutos do PLC
+PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
+{
+    PLC_DATA plcConv   = plcOrig;
+    plcConv.BarraReg   = convLin(plcOrig.BarraReg,   fatorConv.BarraCon);//Converter bits para "posições de barra"
+    plcConv.BarraCon   = convLin(plcOrig.BarraCon,   fatorConv.BarraCon);
+    plcConv.BarraSeg   = convLin(plcOrig.BarraSeg,   fatorConv.BarraSeg);
+    plcConv.CLogALin   = convLin(plcOrig.CLogALin,   fatorConv.CLogALin);//Converter bits para W
+    plcConv.CLogALog   = convLog(plcOrig.CLogALog,   fatorConv.CLogALog);
+    plcConv.CLogAPer   = convPer(plcOrig.CLogAPer,   fatorConv.CLogAPer);
+    plcConv.CParALin   = convLin(plcOrig.CParALin,   fatorConv.CParALin);
+    plcConv.CParALog   = convLog(plcOrig.CParALog,   fatorConv.CParALog);
+    plcConv.CParAPer   = convPer(plcOrig.CParAPer,   fatorConv.CParAPer);
+    plcConv.CLogARea   = convRea(plcOrig.CLogARea,   fatorConv.CLogARea);
+    plcConv.CLin       = convLin(plcOrig.CLin,       fatorConv.CLin);
+    plcConv.CPer       = convLin(plcOrig.CPer,       fatorConv.CPer);
+    plcConv.SRadAre    = convLog(plcOrig.SRadAre,    fatorConv.SRadAer);
+    plcConv.SRadEntPri = convLog(plcOrig.SRadEntPri, fatorConv.SRadEntPri);
+    plcConv.SRadPoc    = convLog(plcOrig.SRadPoc,    fatorConv.SRadPoc);
+    plcConv.SRadRes    = convLog(plcOrig.SRadRes,    fatorConv.SRadRes);
+    plcConv.SRadSaiSec = convLog(plcOrig.SRadSaiSec, fatorConv.SRadSaiSec);
+    plcConv.SRadAer    = convLog(plcOrig.SRadAer,    fatorConv.SRadAer);
+    plcConv.SVasPri    = convLin(plcOrig.SVasPri,    fatorConv.SVasPri);//Converter bits para m^3/h
+    return plcConv;
+}
+
+PLC_DATA libOpcTrigaPLC::get_all_conv()
+{
+    this->get_all();
+    this->_p->plcData.BarraReg   = convLin(this->_p->plcData.BarraReg,   this->fatorConv.BarraCon);//Converter bits para "posições de barra"
+    this->_p->plcData.BarraCon   = convLin(this->_p->plcData.BarraCon,   this->fatorConv.BarraCon);
+    this->_p->plcData.BarraSeg   = convLin(this->_p->plcData.BarraSeg,   this->fatorConv.BarraSeg);
+    this->_p->plcData.CLogALin   = convLin(this->_p->plcData.CLogALin,   this->fatorConv.CLogALin);//Converter bits para W
+    this->_p->plcData.CLogALog   = convLog(this->_p->plcData.CLogALog,   this->fatorConv.CLogALog);
+    this->_p->plcData.CLogAPer   = convPer(this->_p->plcData.CLogAPer,   this->fatorConv.CLogAPer);
+    this->_p->plcData.CParALin   = convLin(this->_p->plcData.CParALin,   this->fatorConv.CParALin);
+    this->_p->plcData.CParALog   = convLog(this->_p->plcData.CParALog,   this->fatorConv.CParALog);
+    this->_p->plcData.CParAPer   = convPer(this->_p->plcData.CParAPer,   this->fatorConv.CParAPer);
+    this->_p->plcData.CLogARea   = convRea(this->_p->plcData.CLogARea,   this->fatorConv.CLogARea);
+    this->_p->plcData.CLin       = convLin(this->_p->plcData.CLin,       this->fatorConv.CLin);
+    this->_p->plcData.CPer       = convLin(this->_p->plcData.CPer,       this->fatorConv.CPer);
+    this->_p->plcData.SRadAre    = convLog(this->_p->plcData.SRadAre,    this->fatorConv.SRadAer);
+    this->_p->plcData.SRadEntPri = convLog(this->_p->plcData.SRadEntPri, this->fatorConv.SRadEntPri);
+    this->_p->plcData.SRadPoc    = convLog(this->_p->plcData.SRadPoc,    this->fatorConv.SRadPoc);
+    this->_p->plcData.SRadRes    = convLog(this->_p->plcData.SRadRes,    this->fatorConv.SRadRes);
+    this->_p->plcData.SRadSaiSec = convLog(this->_p->plcData.SRadSaiSec, this->fatorConv.SRadSaiSec);
+    this->_p->plcData.SRadAer    = convLog(this->_p->plcData.SRadAer,    this->fatorConv.SRadAer);
+    this->_p->plcData.SVasPri    = convLin(this->_p->plcData.SVasPri,    this->fatorConv.SVasPri);//Converter bits para m^3/h
+    return this->_p->plcData;
 }
 
 PLC_DATA libOpcTrigaPLC::get_all()
@@ -132,3 +214,8 @@ PLC_DATA libOpcTrigaPLC::get_all()
     return this->_p->plcData;
 }
 
+CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
+{
+    CONV_PLC fatorConv;
+    return fatorConv;
+}

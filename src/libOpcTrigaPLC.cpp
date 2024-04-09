@@ -233,8 +233,8 @@ CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
     fatorConv.BarraSeg.y0 = 172;
     fatorConv.BarraSeg.y1 = 900;
 
-    fatorConv.CLogALin.x0 = 838;
-    fatorConv.CLogALin.x1 = 4000;
+    fatorConv.CLogALin.x0 = 820;
+    fatorConv.CLogALin.x1 = 4098;
     fatorConv.CLogALin.y0 = 10000;
     fatorConv.CLogALin.y1 = 100000;
 

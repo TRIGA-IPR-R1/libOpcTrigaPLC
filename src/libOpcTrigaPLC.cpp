@@ -113,7 +113,7 @@ float libOpcTrigaPLC::convRea(float x, CONV_REA conv)
 PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
 {
     PLC_DATA plcConv   = plcOrig;
-    plcConv.BarraReg   = convLin(plcOrig.BarraReg,   fatorConv.BarraCon);//Converter bits para "posições de barra"
+    plcConv.BarraReg   = convLin(plcOrig.BarraReg,   fatorConv.BarraReg);//Converter bits para "posições de barra"
     plcConv.BarraCon   = convLin(plcOrig.BarraCon,   fatorConv.BarraCon);
     plcConv.BarraSeg   = convLin(plcOrig.BarraSeg,   fatorConv.BarraSeg);
     plcConv.CLogALin   = convLin(plcOrig.CLogALin,   fatorConv.CLogALin);//Converter bits para W

@@ -97,7 +97,8 @@ struct CONV_LIN
 
 struct CONV_LOG
 {
-
+  double A = 1;
+  double B = 1;
 };
 
 struct CONV_PER
@@ -156,9 +157,9 @@ private:
   std::string stdErrorMsg(std::string functionName, std::string errorMsg,
                           std::string exptionMsg);
 
-  float convLin(float x, CONV_LIN conv);
-  float convLog(float x, CONV_LOG conv);
-  float convPer(float x, CONV_PER conv);
-  float convRea(float x, CONV_REA conv);
+  float convLin(float  x, CONV_LIN conv);
+  float convLog(double x, CONV_LOG conv);
+  float convPer(float  x, CONV_PER conv);
+  float convRea(float  x, CONV_REA conv);
   
 };

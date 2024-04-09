@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <libOpcTrigaPLC.h>
-
+#include <cmath>
 #include <open62541pp/open62541pp.h>
 
 struct libOpcTrigaPLC_private {
@@ -92,10 +92,10 @@ float libOpcTrigaPLC::convLin(float x, CONV_LIN conv)
     return x * (conv.y1-conv.y0) / (conv.x1-conv.x0) + (conv.y0*conv.x1-conv.y1*conv.x0) / (conv.x1-conv.x0);
 }
 
-//Função para converter o valor de x, sendo x logarítimo. 
-float libOpcTrigaPLC::convLog(float x, CONV_LOG conv)
+//Função para converter o valor de x, sendo x logarítimo de base 10. 
+float libOpcTrigaPLC::convLog(double x, CONV_LOG conv)
 {
-    return x;
+    return conv.A*std::pow(10,conv.B*x);
 }
 
 //Função para converter o valor de x, sendo x sinal de período. 

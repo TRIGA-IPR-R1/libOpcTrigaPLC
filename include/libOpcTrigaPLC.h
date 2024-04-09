@@ -73,8 +73,8 @@ struct CONV_LIN
 
 struct CONV_LOG
 {
-  double A = 1;
-  double B = 1;
+  double A = -2;
+  double B =  0;
 };
 
 struct CONV_PER

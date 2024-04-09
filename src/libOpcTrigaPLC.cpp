@@ -217,5 +217,33 @@ PLC_DATA libOpcTrigaPLC::get_all()
 CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
 {
     CONV_PLC fatorConv;
+    //Temporariamente para testes
+    fatorConv.BarraReg.x0 = 260;
+    fatorConv.BarraReg.x1 = 1581;
+    fatorConv.BarraReg.y0 = 150;
+    fatorConv.BarraReg.y1 = 902;
+
+    fatorConv.BarraCon.x0 = 312;
+    fatorConv.BarraCon.x1 = 1739;
+    fatorConv.BarraCon.y0 = 162;
+    fatorConv.BarraCon.y1 = 900;
+
+    fatorConv.BarraSeg.x0 = 301;
+    fatorConv.BarraSeg.x1 = 1592;
+    fatorConv.BarraSeg.y0 = 172;
+    fatorConv.BarraSeg.y1 = 901;
+
+    fatorConv.CLogALin.x0 = 838;
+    fatorConv.CLogALin.x1 = 4000;
+    fatorConv.CLogALin.y0 = 10000;
+    fatorConv.CLogALin.y1 = 100000;
+
+    fatorConv.CLogALog.A = 0.0025;
+    fatorConv.CLogALog.B = 0.000990098877;
+
+    fatorConv.CLin.x0 = 14;
+    fatorConv.CLin.x1 = 8145;
+    fatorConv.CLin.y0 = 0;
+    fatorConv.CLin.y1 = 2.375;
     return fatorConv;
 }

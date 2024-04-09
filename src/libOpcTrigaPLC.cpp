@@ -138,7 +138,7 @@ PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
 PLC_DATA libOpcTrigaPLC::get_all_conv()
 {
     this->get_all();
-    this->_p->plcData.BarraReg   = convLin(this->_p->plcData.BarraReg,   this->fatorConv.BarraCon);//Converter bits para "posições de barra"
+    this->_p->plcData.BarraReg   = convLin(this->_p->plcData.BarraReg,   this->fatorConv.BarraReg);//Converter bits para "posições de barra"
     this->_p->plcData.BarraCon   = convLin(this->_p->plcData.BarraCon,   this->fatorConv.BarraCon);
     this->_p->plcData.BarraSeg   = convLin(this->_p->plcData.BarraSeg,   this->fatorConv.BarraSeg);
     this->_p->plcData.CLogALin   = convLin(this->_p->plcData.CLogALin,   this->fatorConv.CLogALin);//Converter bits para W
@@ -218,9 +218,9 @@ CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
 {
     CONV_PLC fatorConv;
     //Temporariamente para testes
-    fatorConv.BarraReg.x0 = 260;
-    fatorConv.BarraReg.x1 = 1581;
-    fatorConv.BarraReg.y0 = 150;
+    fatorConv.BarraReg.x0 = 262;
+    fatorConv.BarraReg.x1 = 1580;
+    fatorConv.BarraReg.y0 = 151;
     fatorConv.BarraReg.y1 = 902;
 
     fatorConv.BarraCon.x0 = 312;
@@ -229,9 +229,9 @@ CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
     fatorConv.BarraCon.y1 = 900;
 
     fatorConv.BarraSeg.x0 = 301;
-    fatorConv.BarraSeg.x1 = 1592;
+    fatorConv.BarraSeg.x1 = 1593;
     fatorConv.BarraSeg.y0 = 172;
-    fatorConv.BarraSeg.y1 = 901;
+    fatorConv.BarraSeg.y1 = 900;
 
     fatorConv.CLogALin.x0 = 838;
     fatorConv.CLogALin.x1 = 4000;

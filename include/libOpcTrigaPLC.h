@@ -67,8 +67,8 @@ struct CONV_LIN
 {
   float x0 = 0;
   float x1 = 1;
-  float y0 = 0;
-  float y1 = 1;
+  float y0 = -2;
+  float y1 = -2;
 };
 
 struct CONV_LOG

@@ -16,7 +16,6 @@
       let
         pkgs = import nixpkgs { inherit system; };
         nativeBuildInputs = with pkgs; [
-          busybox
           cmake
           git
           pkg-config

@@ -195,6 +195,10 @@ PLC_DATA libOpcTrigaPLC::get_all()
         this->_p->plcData.SConPoc         = this->_p->client.getNode({2, "GVL.SConPoc (%MD9)"})                           .readValueScalar<float>();
         this->_p->plcData.SConSaiPri      = this->_p->client.getNode({2, "GVL.SConSaiPri (%MD10)"})                       .readValueScalar<float>();
         this->_p->plcData.STATE = 0;
+        
+        opcua::Node rootNode = this->_p->client.getRootNode(); //getObjectsNode();
+        std::cout << rootNode.browseChild({{2, "GVL.SConSaiPri (%MD10)"}}).readValueScalar<float>();
+
     }
     catch (const std::exception& e)
     {

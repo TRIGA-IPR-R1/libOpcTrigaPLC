@@ -12,7 +12,7 @@ project(
 FetchContent_Declare(
   open62541pp
   GIT_REPOSITORY https://github.com/open62541pp/open62541pp
-  GIT_TAG e8fb97e704447c52538a8b40d1d3295c12d9dd81
+  GIT_TAG 6b83f185e0fbc78f98647ff4afd848b8a17cbc60 #e8fb97e704447c52538a8b40d1d3295c12d9dd81
   EXCLUDE_FROM_ALL)
 FetchContent_MakeAvailable(open62541pp)
 

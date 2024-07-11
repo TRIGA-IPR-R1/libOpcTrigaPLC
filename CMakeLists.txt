@@ -6,7 +6,7 @@ project(
   libOpcTrigaPLC
   VERSION 0.0.0
   DESCRIPTION "Comunicate with the PLC in the Triga Control Table using OPC"
-  HOMEPAGE_URL "https://github.com/SEURT-CDTN/libOpcTrigaPLC"
+  HOMEPAGE_URL "https://github.com/TRIGA-IPR-R1/libOpcTrigaPLC"
   LANGUAGES CXX)
 
 FetchContent_Declare(

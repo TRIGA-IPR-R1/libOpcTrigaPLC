@@ -164,36 +164,26 @@ PLC_DATA libOpcTrigaPLC::get_all()
 {
     try
     {
-        this->_p->plcData.BarraReg        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inBarraReg (%IW5)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.BarraCon        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inBarraCon (%IW6)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.BarraSeg        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inBarraSeg (%IW7)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.CLogALog        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCLogALog (%IW17)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CLogALin        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCLogALin (%IW18)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CLogAPer        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCLogAPer (%IW19)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CParALin        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCParALin (%IW14)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CParALog        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCParALog (%IW15)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CParAPer        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCParAPer (%IW16)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CLogARea        = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCLogARea (%IW20)"})  .readValueScalar<int16_t>();
-        this->_p->plcData.CLin            = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCLin (%IW25)"})      .readValueScalar<int16_t>();
-        this->_p->plcData.CLinScale       = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inModule_D0 (%IW0)"})  .readValueScalar<u_int16_t>() & 0b00000111 - 2;
-        this->_p->plcData.CPer            = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inCPer (%IW26)"})      .readValueScalar<int16_t>();
-        this->_p->plcData.SRadAre         = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSRadAre (%IW27)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.SRadEntPri      = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSRadEntPri (%IW28)"}).readValueScalar<int16_t>();
-        this->_p->plcData.SRadPoc         = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSRadPoc (%IW29)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.SRadRes         = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSRadRes (%IW30)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.SRadSaiSec      = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSRadSaiSec (%IW31)"}).readValueScalar<int16_t>();
-        this->_p->plcData.SRadAer         = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSRadAer (%IW32)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.SVasPri         = this->_p->client.getNode({2, "IoConfig_Globals_Mapping.inSVasPri (%IW49)"})   .readValueScalar<int16_t>();
-        this->_p->plcData.SPt100Poco      = this->_p->client.getNode({2, "GVL.SPt100Poco (%MD1)"})                        .readValueScalar<float>();
-        this->_p->plcData.SPt100EntPri    = this->_p->client.getNode({2, "GVL.SPt100EntPri (%MD2)"})                      .readValueScalar<float>();
-        this->_p->plcData.SPt100SaiPri    = this->_p->client.getNode({2, "GVL.SPt100SaiPri (%MD3)"})                      .readValueScalar<float>();
-        this->_p->plcData.SPt100EntSec    = this->_p->client.getNode({2, "GVL.SPt100EntSec (%MD4)"})                      .readValueScalar<float>();
-        this->_p->plcData.SPt100SaiSec    = this->_p->client.getNode({2, "GVL.SPt100SaiSec (%MD5)"})                      .readValueScalar<float>();
-        this->_p->plcData.STpPoc1         = this->_p->client.getNode({2, "GVL.STpPoc1 (%MD6)"})                           .readValueScalar<float>();
-        this->_p->plcData.STpPoc2         = this->_p->client.getNode({2, "GVL.STpPoc2 (%MD7)"})                           .readValueScalar<float>();
-        this->_p->plcData.STpLen          = this->_p->client.getNode({2, "GVL.STpLen (%MD8)"})                            .readValueScalar<float>();
-        this->_p->plcData.SConPoc         = this->_p->client.getNode({2, "GVL.SConPoc (%MD9)"})                           .readValueScalar<float>();
-        this->_p->plcData.SConSaiPri      = this->_p->client.getNode({2, "GVL.SConSaiPri (%MD10)"})                       .readValueScalar<float>();
+        this->_p->plcData.BarraReg     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inBarraReg (%IW5)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.BarraCon     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inBarraCon (%IW6)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.BarraSeg     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inBarraSeg (%IW7)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.CLinScale    = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inModule_D0 (%IW0)"}    )  .readValueScalar<u_int16_t>() & 0b00000111 - 2;
+        this->_p->plcData.CLin         = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCLin (%IW8)"}         )  .readValueScalar<int16_t>();
+        this->_p->plcData.CPer         = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCPer (%IW13)"}        )  .readValueScalar<int16_t>();
+        this->_p->plcData.CLogARea     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCLogARea (%IW14)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.CLogALin     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCLogALin (%IW15)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.CLogALog     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCLogALog (%IW16)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.CLogAPer     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCLogAPer (%IW17)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.CParALin     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCParALin (%IW18)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.CParALog     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCParALog (%IW19)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.CParAPer     = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inCParAPer (%IW20)"}    )  .readValueScalar<int16_t>();
+        this->_p->plcData.SRadAre      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadAre (%IW25)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.SRadEntPri   = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadEntPri (%IW26)"}  )  .readValueScalar<int16_t>();
+        this->_p->plcData.SRadPoc      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadPoc (%IW27)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.SRadRes      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadRes (%IW28)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.SRadSaiSec   = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadSaiSec (%IW29)"}  )  .readValueScalar<int16_t>();
+        this->_p->plcData.SRadAer      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadAer (%IW30)"}     )  .readValueScalar<int16_t>();
+        this->_p->plcData.SVasPri      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSVasPri (%IW49)"}     )  .readValueScalar<int16_t>();
         this->_p->plcData.STATE = 0;
         
         opcua::Node rootNode = this->_p->client.getRootNode(); //getObjectsNode();

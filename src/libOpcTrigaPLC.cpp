@@ -185,10 +185,6 @@ PLC_DATA libOpcTrigaPLC::get_all()
         this->_p->plcData.SRadAer      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSRadAer (%IW30)"}     )  .readValueScalar<int16_t>();
         this->_p->plcData.SVasPri      = this->_p->client.getNode( {2, "IoConfig_Globals_Mapping.inSVasPri (%IW49)"}     )  .readValueScalar<int16_t>();
         this->_p->plcData.STATE = 0;
-        
-        opcua::Node rootNode = this->_p->client.getRootNode(); //getObjectsNode();
-        std::cout << rootNode.browseChild({{2, "GVL.SConSaiPri (%MD10)"}}).readValueScalar<float>();
-
     }
     catch (const std::exception& e)
     {
@@ -207,6 +203,60 @@ PLC_DATA libOpcTrigaPLC::get_all()
     this->_p->plcData.TIME = std::chrono::system_clock::now();
     return this->_p->plcData;
 }
+
+//Test:
+//PLC_DATA libOpcTrigaPLC::get_all_objects()
+//{
+//    try
+//    {
+//        opcua::Node objectsNodeFolder       = this->_p->client.getObjectsNode(); //getObjectsNode();
+//        std::vector<opcua::Node<opcua::Client>, std::allocator<opcua::Node<opcua::Client> > > objectsNodeVector = 	objectsNodeFolder.browseChildren();
+//        std::vector<opcua::Node<opcua::Client>, std::allocator<opcua::Node<opcua::Client> > > dataNodeVector = 	objectsNodeVector[1].browseChildren();
+//
+//        if (!dataNodeVector.empty()) 
+//        {
+//            this->_p->plcData.CLinScale    = dataNodeVector[ 0].readValueScalar<u_int16_t>();
+//            this->_p->plcData.BarraReg     = dataNodeVector[ 1].readValueScalar<int16_t>();
+//            this->_p->plcData.BarraCon     = dataNodeVector[ 2].readValueScalar<int16_t>();
+//            this->_p->plcData.BarraSeg     = dataNodeVector[ 3].readValueScalar<int16_t>();
+//            this->_p->plcData.CLin         = dataNodeVector[ 4].readValueScalar<int16_t>();
+//            this->_p->plcData.CPer         = dataNodeVector[ 5].readValueScalar<int16_t>();
+//            this->_p->plcData.CLogARea     = dataNodeVector[ 6].readValueScalar<int16_t>();
+//            this->_p->plcData.CLogALin     = dataNodeVector[ 7].readValueScalar<int16_t>();
+//            this->_p->plcData.CLogALog     = dataNodeVector[ 8].readValueScalar<int16_t>();
+//            this->_p->plcData.CLogAPer     = dataNodeVector[ 9].readValueScalar<int16_t>();
+//            this->_p->plcData.CParALin     = dataNodeVector[10].readValueScalar<int16_t>();
+//            this->_p->plcData.CParALog     = dataNodeVector[11].readValueScalar<int16_t>();
+//            this->_p->plcData.CParAPer     = dataNodeVector[12].readValueScalar<int16_t>();
+//            this->_p->plcData.SRadAre      = dataNodeVector[13].readValueScalar<int16_t>();
+//            this->_p->plcData.SRadEntPri   = dataNodeVector[14].readValueScalar<int16_t>();
+//            this->_p->plcData.SRadPoc      = dataNodeVector[15].readValueScalar<int16_t>();
+//            this->_p->plcData.SRadRes      = dataNodeVector[16].readValueScalar<int16_t>();
+//            this->_p->plcData.SRadSaiSec   = dataNodeVector[17].readValueScalar<int16_t>();
+//            this->_p->plcData.SRadAer      = dataNodeVector[18].readValueScalar<int16_t>();
+//            this->_p->plcData.SVasPri      = dataNodeVector[19].readValueScalar<int16_t>();
+//        } else {
+//            std::cout << "Nenhum elemento encontrado em data." << std::endl;
+//        }
+//        this->_p->plcData.STATE = 0;
+//    }
+//    catch (const std::exception& e)
+//    {
+//        if (this->_p->client.isConnected())
+//        {
+//            std::cerr << stdErrorMsg("get_all_root()", "Cliente conectado, porém erro ao adquirir dados", e.what());
+//            this->_p->plcData.STATE = 1;
+//        }
+//        else
+//        {
+//            std::cerr << stdErrorMsg("get_all_root()", "Cliente desconectado", e.what());
+//            this->_p->plcData.STATE = 2;
+//        }
+//    }
+//
+//    this->_p->plcData.TIME = std::chrono::system_clock::now();
+//    return this->_p->plcData;
+//}
 
 CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
 {

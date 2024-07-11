@@ -116,6 +116,7 @@ public:
   PLC_DATA convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv);
   PLC_DATA get_all_conv();
   PLC_DATA get_all();
+  //PLC_DATA get_all_objects(); //teste
   bool tryConnect();
 
 private:

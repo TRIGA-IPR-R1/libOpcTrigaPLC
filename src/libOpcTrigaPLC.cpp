@@ -137,26 +137,7 @@ PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
 
 PLC_DATA libOpcTrigaPLC::get_all_conv()
 {
-    this->get_all();
-    this->_p->plcData.BarraReg   = convLin(this->_p->plcData.BarraReg,   this->fatorConv.BarraReg);//Converter bits para "posições de barra"
-    this->_p->plcData.BarraCon   = convLin(this->_p->plcData.BarraCon,   this->fatorConv.BarraCon);
-    this->_p->plcData.BarraSeg   = convLin(this->_p->plcData.BarraSeg,   this->fatorConv.BarraSeg);
-    this->_p->plcData.CLogALin   = convLin(this->_p->plcData.CLogALin,   this->fatorConv.CLogALin);//Converter bits para W
-    this->_p->plcData.CLogALog   = convLog(this->_p->plcData.CLogALog,   this->fatorConv.CLogALog);
-    this->_p->plcData.CLogAPer   = convPer(this->_p->plcData.CLogAPer,   this->fatorConv.CLogAPer);
-    this->_p->plcData.CParALin   = convLin(this->_p->plcData.CParALin,   this->fatorConv.CParALin);
-    this->_p->plcData.CParALog   = convLog(this->_p->plcData.CParALog,   this->fatorConv.CParALog);
-    this->_p->plcData.CParAPer   = convPer(this->_p->plcData.CParAPer,   this->fatorConv.CParAPer);
-    this->_p->plcData.CLogARea   = convRea(this->_p->plcData.CLogARea,   this->fatorConv.CLogARea);
-    this->_p->plcData.CLin       = convLin(this->_p->plcData.CLin,       this->fatorConv.CLin);
-    this->_p->plcData.CPer       = convLin(this->_p->plcData.CPer,       this->fatorConv.CPer);
-    this->_p->plcData.SRadAre    = convLog(this->_p->plcData.SRadAre,    this->fatorConv.SRadAer);
-    this->_p->plcData.SRadEntPri = convLog(this->_p->plcData.SRadEntPri, this->fatorConv.SRadEntPri);
-    this->_p->plcData.SRadPoc    = convLog(this->_p->plcData.SRadPoc,    this->fatorConv.SRadPoc);
-    this->_p->plcData.SRadRes    = convLog(this->_p->plcData.SRadRes,    this->fatorConv.SRadRes);
-    this->_p->plcData.SRadSaiSec = convLog(this->_p->plcData.SRadSaiSec, this->fatorConv.SRadSaiSec);
-    this->_p->plcData.SRadAer    = convLog(this->_p->plcData.SRadAer,    this->fatorConv.SRadAer);
-    this->_p->plcData.SVasPri    = convLin(this->_p->plcData.SVasPri,    this->fatorConv.SVasPri);//Converter bits para m^3/h
+    this->_p->plcData = convAllData(get_all(), fatorConv);
     return this->_p->plcData;
 }
 

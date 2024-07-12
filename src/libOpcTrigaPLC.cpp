@@ -99,14 +99,10 @@ float libOpcTrigaPLC::convLog(double x, CONV_LOG conv)
 }
 
 //Função para converter o valor de x, sendo x sinal de período. 
-float libOpcTrigaPLC::convPer(float x, CONV_PER conv)
+float libOpcTrigaPLC::convPer(double x, CONV_PER conv)
 {
-    return x;
-}
-
-float libOpcTrigaPLC::convRea(float x, CONV_REA conv)
-{
-    return x;
+    if (x==-1) return x;
+    return (x-4096)/4096; //Convertendo para % da posição do ponteiro
 }
 
 //Função para converter os dados brutos do PLC
@@ -122,7 +118,7 @@ PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
     plcConv.CParALin   = convLin(plcOrig.CParALin,   fatorConv.CParALin);
     plcConv.CParALog   = convLog(plcOrig.CParALog,   fatorConv.CParALog);
     plcConv.CParAPer   = convPer(plcOrig.CParAPer,   fatorConv.CParAPer);
-    plcConv.CLogARea   = convRea(plcOrig.CLogARea,   fatorConv.CLogARea);
+    plcConv.CLogARea   = convLin(plcOrig.CLogARea,   fatorConv.CLogARea);
     plcConv.CLin       = convLin(plcOrig.CLin,       fatorConv.CLin);
     plcConv.CPer       = convLin(plcOrig.CPer,       fatorConv.CPer);
     plcConv.SRadAre    = convLog(plcOrig.SRadAre,    fatorConv.SRadAer);

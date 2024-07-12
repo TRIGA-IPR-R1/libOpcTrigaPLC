@@ -73,11 +73,6 @@ struct CONV_PER
 
 };
 
-struct CONV_REA
-{
-
-};
-
 struct CONV_PLC {
   CONV_LIN BarraReg;
   CONV_LIN BarraCon;
@@ -88,7 +83,7 @@ struct CONV_PLC {
   CONV_LIN CParALin;
   CONV_LOG CParALog;
   CONV_PER CParAPer;
-  CONV_REA CLogARea;
+  CONV_LIN CLogARea;
   CONV_LIN CLin;
   CONV_LIN CPer;
   CONV_LOG SRadAre;
@@ -116,7 +111,6 @@ public:
   PLC_DATA convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv);
   PLC_DATA get_all_conv();
   PLC_DATA get_all();
-  //PLC_DATA get_all_objects(); //teste
   bool tryConnect();
 
 private:
@@ -127,7 +121,5 @@ private:
 
   float convLin(float  x, CONV_LIN conv);
   float convLog(double x, CONV_LOG conv);
-  float convPer(float  x, CONV_PER conv);
-  float convRea(float  x, CONV_REA conv);
-  
+  float convPer(double x, CONV_PER conv);  
 };

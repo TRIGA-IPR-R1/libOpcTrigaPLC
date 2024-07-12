@@ -204,6 +204,57 @@ PLC_DATA libOpcTrigaPLC::get_all()
     return this->_p->plcData;
 }
 
+//PLC_DATA libOpcTrigaPLC::get_allData_vector()
+//{
+//    try
+//    {
+//        auto dataVector = this->_p->client.getNode( {2, "GVL.AllData[]"}     )  .readValueArray<int16_t>();
+//
+//        if (!dataVector.empty()) 
+//        {
+//            this->_p->plcData.CLinScale    = dataVector[ 0];
+//            this->_p->plcData.BarraReg     = dataVector[ 1];
+//            this->_p->plcData.BarraCon     = dataVector[ 2];
+//            this->_p->plcData.BarraSeg     = dataVector[ 3];
+//            this->_p->plcData.CLin         = dataVector[ 4];
+//            this->_p->plcData.CPer         = dataVector[ 5];
+//            this->_p->plcData.CLogARea     = dataVector[ 6];
+//            this->_p->plcData.CLogALin     = dataVector[ 7];
+//            this->_p->plcData.CLogALog     = dataVector[ 8];
+//            this->_p->plcData.CLogAPer     = dataVector[ 9];
+//            this->_p->plcData.CParALin     = dataVector[10];
+//            this->_p->plcData.CParALog     = dataVector[11];
+//            this->_p->plcData.CParAPer     = dataVector[12];
+//            this->_p->plcData.SRadAre      = dataVector[13];
+//            this->_p->plcData.SRadEntPri   = dataVector[14];
+//            this->_p->plcData.SRadPoc      = dataVector[15];
+//            this->_p->plcData.SRadRes      = dataVector[16];
+//            this->_p->plcData.SRadSaiSec   = dataVector[17];
+//            this->_p->plcData.SRadAer      = dataVector[18];
+//            this->_p->plcData.SVasPri      = dataVector[19];
+//        } else {
+//            std::cout << "Nenhum elemento encontrado em data." << std::endl;
+//        }
+//        this->_p->plcData.STATE = 0;
+//    }
+//    catch (const std::exception& e)
+//    {
+//        if (this->_p->client.isConnected())
+//        {
+//            std::cerr << stdErrorMsg("get_all_root()", "Cliente conectado, porém erro ao adquirir dados", e.what());
+//            this->_p->plcData.STATE = 1;
+//        }
+//        else
+//        {
+//            std::cerr << stdErrorMsg("get_all_root()", "Cliente desconectado", e.what());
+//            this->_p->plcData.STATE = 2;
+//        }
+//    }
+//
+//    this->_p->plcData.TIME = std::chrono::system_clock::now();
+//    return this->_p->plcData;
+//}
+
 //Test:
 //PLC_DATA libOpcTrigaPLC::get_all_objects()
 //{

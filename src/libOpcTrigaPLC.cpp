@@ -89,12 +89,14 @@ libOpcTrigaPLC::~libOpcTrigaPLC()
 //Função para converter o valor de x através de 2 pontos conhecidos. 
 float libOpcTrigaPLC::convLin(float x, CONV_LIN conv)
 {
+    if (x==-1) return x;
     return x * (conv.y1-conv.y0) / (conv.x1-conv.x0) + (conv.y0*conv.x1-conv.y1*conv.x0) / (conv.x1-conv.x0);
 }
 
 //Função para converter o valor de x, sendo x logarítimo de base 10. 
 float libOpcTrigaPLC::convLog(double x, CONV_LOG conv)
 {
+    if (x==-1) return x;
     return conv.A*std::pow(10,conv.B*x);
 }
 

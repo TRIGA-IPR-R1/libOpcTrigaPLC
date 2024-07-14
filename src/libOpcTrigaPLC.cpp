@@ -20,6 +20,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <libOpcTrigaPLC.h>
 #include <cmath>
 #include <open62541pp/open62541pp.h>
+#include <fstream>
+
 
 struct libOpcTrigaPLC_private {
     opcua::Client client;
@@ -183,36 +185,161 @@ PLC_DATA libOpcTrigaPLC::get_all()
     return this->_p->plcData;
 }
 
+//CONV_LIN 
+
 CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
 {
     CONV_PLC fatorConv;
-    //Temporariamente para testes
-    fatorConv.BarraReg.x0 = 262;
-    fatorConv.BarraReg.x1 = 1580;
-    fatorConv.BarraReg.y0 = 151;
-    fatorConv.BarraReg.y1 = 902;
 
-    fatorConv.BarraCon.x0 = 312;
-    fatorConv.BarraCon.x1 = 1739;
-    fatorConv.BarraCon.y0 = 162;
-    fatorConv.BarraCon.y1 = 900;
+    std::ifstream infile(filename);
+    std::string line;
 
-    fatorConv.BarraSeg.x0 = 301;
-    fatorConv.BarraSeg.x1 = 1593;
-    fatorConv.BarraSeg.y0 = 172;
-    fatorConv.BarraSeg.y1 = 900;
+    std::string kind;
 
-    fatorConv.CLogALin.x0 = 820;
-    fatorConv.CLogALin.x1 = 3905;
-    fatorConv.CLogALin.y0 = 10000;
-    fatorConv.CLogALin.y1 = 100000;
+    //cout << "before while\n";
+    while (std::getline(infile, line)) 
+    {
+        // Remove espaços em branco no início e no fim da linha
+        line.erase(0, line.find_first_not_of(" \t\n\r\f\v"));
+        line.erase(line.find_last_not_of(" \t\n\r\f\v") + 1);
 
-    fatorConv.CLogALog.A = 0.0025;
-    fatorConv.CLogALog.B = 0.000990098877;
+        if (line.empty() || line[0] == '#')
+        {
+            continue;  // Pula linhas vazias e comentários
+        }
+        if (line[0] == '[' && line.back() == ']') 
+        {
+            std::string section = line.substr(1, line.size() - 2);
+            std::istringstream iss(section);
+            iss >> kind;
+        } 
+        else 
+        {
+            std::istringstream iss(line);
+            std::string key;
+            std::string igual, valueS;
+            iss >> key >> igual >> valueS;
+            double value = std::stod(valueS);
 
-    fatorConv.CLin.x0 = 14;
-    fatorConv.CLin.x1 = 8145;
-    fatorConv.CLin.y0 = 0;
-    fatorConv.CLin.y1 = 2.375;
+            if (kind == "BarraReg") 
+            {
+                if      (key == "x0") fatorConv.BarraReg.x0 = value;
+                else if (key == "x1") fatorConv.BarraReg.x1 = value;
+                else if (key == "y0") fatorConv.BarraReg.y0 = value;
+                else if (key == "y1") fatorConv.BarraReg.y1 = value;
+            } 
+            else if (kind == "BarraCon") 
+            {
+                if      (key == "x0") fatorConv.BarraCon.x0 = value;
+                else if (key == "x1") fatorConv.BarraCon.x1 = value;
+                else if (key == "y0") fatorConv.BarraCon.y0 = value;
+                else if (key == "y1") fatorConv.BarraCon.y1 = value;
+            } 
+            else if (kind == "BarraSeg") 
+            {
+                if      (key == "x0") fatorConv.BarraSeg.x0 = value;
+                else if (key == "x1") fatorConv.BarraSeg.x1 = value;
+                else if (key == "y0") fatorConv.BarraSeg.y0 = value;
+                else if (key == "y1") fatorConv.BarraSeg.y1 = value;
+            } 
+            else if (kind == "CLogALin") 
+            {
+                if      (key == "x0") fatorConv.CLogALin.x0 = value;
+                else if (key == "x1") fatorConv.CLogALin.x1 = value;
+                else if (key == "y0") fatorConv.CLogALin.y0 = value;
+                else if (key == "y1") fatorConv.CLogALin.y1 = value;
+            } 
+            else if (kind == "CParALin") 
+            {
+                if      (key == "x0") fatorConv.CParALin.x0 = value;
+                else if (key == "x1") fatorConv.CParALin.x1 = value;
+                else if (key == "y0") fatorConv.CParALin.y0 = value;
+                else if (key == "y1") fatorConv.CParALin.y1 = value;
+            } 
+            else if (kind == "CLogARea") 
+            {
+                if      (key == "x0") fatorConv.CLogARea.x0 = value;
+                else if (key == "x1") fatorConv.CLogARea.x1 = value;
+                else if (key == "y0") fatorConv.CLogARea.y0 = value;
+                else if (key == "y1") fatorConv.CLogARea.y1 = value;
+            } 
+            else if (kind == "CLin") 
+            {
+                if      (key == "x0") fatorConv.CLin.x0 = value;
+                else if (key == "x1") fatorConv.CLin.x1 = value;
+                else if (key == "y0") fatorConv.CLin.y0 = value;
+                else if (key == "y1") fatorConv.CLin.y1 = value;
+            } 
+            else if (kind == "CPer") 
+            {
+                if      (key == "x0") fatorConv.CPer.x0 = value;
+                else if (key == "x1") fatorConv.CPer.x1 = value;
+                else if (key == "y0") fatorConv.CPer.y0 = value;
+                else if (key == "y1") fatorConv.CPer.y1 = value;
+            } 
+            else if (kind == "SVasPri") 
+            {
+                if      (key == "x0") fatorConv.SVasPri.x0 = value;
+                else if (key == "x1") fatorConv.SVasPri.x1 = value;
+                else if (key == "y0") fatorConv.SVasPri.y0 = value;
+                else if (key == "y1") fatorConv.SVasPri.y1 = value;
+            } 
+            else if (kind == "CLogALog") 
+            {
+                if      (key == "A") fatorConv.CLogALog.A = value;
+                else if (key == "B") fatorConv.CLogALog.B = value;
+            } 
+            else if (kind == "CParALog") 
+            {
+                if      (key == "A") fatorConv.CParALog.A = value;
+                else if (key == "B") fatorConv.CParALog.B = value;
+            } 
+            else if (kind == "SRadAre") 
+            {
+                if      (key == "A") fatorConv.SRadAre.A = value;
+                else if (key == "B") fatorConv.SRadAre.B = value;
+            } 
+            else if (kind == "SRadEntPri") 
+            {
+                if      (key == "A") fatorConv.SRadEntPri.A = value;
+                else if (key == "B") fatorConv.SRadEntPri.B = value;
+            } 
+            else if (kind == "SRadPoc") 
+            {
+                if      (key == "A") fatorConv.SRadPoc.A = value;
+                else if (key == "B") fatorConv.SRadPoc.B = value;
+            } 
+            else if (kind == "SRadRes") 
+            {
+                if      (key == "A") fatorConv.SRadRes.A = value;
+                else if (key == "B") fatorConv.SRadRes.B = value;
+            } 
+            else if (kind == "SRadSaiSec") 
+            {
+                if      (key == "A") fatorConv.SRadSaiSec.A = value;
+                else if (key == "B") fatorConv.SRadSaiSec.B = value;
+            } 
+            else if (kind == "SRadAer") 
+            {
+                if      (key == "A") fatorConv.SRadAer.A = value;
+                else if (key == "B") fatorConv.SRadAer.B = value;
+            } 
+            else if (kind == "CLogAPer") 
+            {
+                if      (key == "K") fatorConv.CLogAPer.K = value;
+                else if (key == "L") fatorConv.CLogAPer.L = value;
+                else if (key == "M") fatorConv.CLogAPer.M = value;
+                else if (key == "N") fatorConv.CLogAPer.N = value;
+            } 
+            else if (kind == "CParAPer") 
+            {
+                if      (key == "K") fatorConv.CParAPer.K = value;
+                else if (key == "L") fatorConv.CParAPer.L = value;
+                else if (key == "M") fatorConv.CParAPer.M = value;
+                else if (key == "N") fatorConv.CParAPer.N = value;
+            }
+        }
+    }
+
     return fatorConv;
 }

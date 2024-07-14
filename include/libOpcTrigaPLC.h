@@ -56,8 +56,8 @@ struct PLC_DATA
 
 struct CONV_LIN
 {
-  float x0 = 0;
-  float x1 = 1;
+  float x0 =  0;
+  float x1 =  1;
   float y0 = -2;
   float y1 = -2;
 };
@@ -70,7 +70,10 @@ struct CONV_LOG
 
 struct CONV_PER
 {
-
+  double K = 0;
+  double L = 0;
+  double M = 0;
+  double N = 0;
 };
 
 struct CONV_PLC {

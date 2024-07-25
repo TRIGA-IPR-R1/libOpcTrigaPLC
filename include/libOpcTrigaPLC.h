@@ -70,10 +70,10 @@ struct CONV_LOG
 
 struct CONV_PER
 {
-  double K = 0;
-  double L = 0;
-  double M = 0;
-  double N = 0;
+  double K = 4096;//Bit referente +/-inf
+  double L = 0;//Multiplicação
+  //double M = 0;
+  //double N = 0;
 };
 
 struct CONV_PLC {

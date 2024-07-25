@@ -106,7 +106,9 @@ float libOpcTrigaPLC::convLog(double x, CONV_LOG conv)
 float libOpcTrigaPLC::convPer(double x, CONV_PER conv)
 {
     if (x==-1) return x;
-    return (x-4096)/4096; //Convertendo para % da posição do ponteiro
+    double dom = x-conv.K;
+    if (dom==0) return 0;//Se o denominador for igual a 0, retorne 0
+    return conv.L/dom;
 }
 
 //Função para converter os dados brutos do PLC
@@ -328,15 +330,15 @@ CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
             {
                 if      (key == "K") fatorConv.CLogAPer.K = value;
                 else if (key == "L") fatorConv.CLogAPer.L = value;
-                else if (key == "M") fatorConv.CLogAPer.M = value;
-                else if (key == "N") fatorConv.CLogAPer.N = value;
+                //else if (key == "M") fatorConv.CLogAPer.M = value;
+                //else if (key == "N") fatorConv.CLogAPer.N = value;
             } 
             else if (kind == "CParAPer") 
             {
                 if      (key == "K") fatorConv.CParAPer.K = value;
                 else if (key == "L") fatorConv.CParAPer.L = value;
-                else if (key == "M") fatorConv.CParAPer.M = value;
-                else if (key == "N") fatorConv.CParAPer.N = value;
+                //else if (key == "M") fatorConv.CParAPer.M = value;
+                //else if (key == "N") fatorConv.CParAPer.N = value;
             }
         }
     }

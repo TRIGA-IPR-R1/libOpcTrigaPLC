@@ -111,7 +111,7 @@ public:
   CONV_PLC fatorConv;
   CONV_PLC readFatorConvFile(std::string filename);
 
-  PLC_DATA convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv);
+  PLC_DATA convAllData(PLC_DATA plcOrig);
   PLC_DATA get_all_conv();
   PLC_DATA get_all();
   bool tryConnect();

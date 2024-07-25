@@ -61,7 +61,9 @@ int main(int argc, char* argv[])
         for(int i=0;i<std::stoi(argv[3]);i++)
         {
             PLC_DATA data = plc.get_all();
-            std::cout << getTimeString() << "\t" << data.CLogALog << std::endl;
+            //std::cout << getTimeString() << "\t" << data.CLogALog << std::endl;
+            PLC_DATA dataConv = plc.convAllData(data);
+            std::cout << "Orig: " << data.CParALin << "\t   Conv: " << dataConv.CParALin << std::endl;
         }
     }
     catch(int error) { return 2; }

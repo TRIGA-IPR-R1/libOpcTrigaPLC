@@ -110,7 +110,7 @@ float libOpcTrigaPLC::convPer(double x, CONV_PER conv)
 }
 
 //Função para converter os dados brutos do PLC
-PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
+PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig)
 {
     PLC_DATA plcConv   = plcOrig;
     plcConv.BarraReg   = convLin(plcOrig.BarraReg,   fatorConv.BarraReg);//Converter bits para "posições de barra"
@@ -137,7 +137,7 @@ PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig, CONV_PLC fatorConv)
 
 PLC_DATA libOpcTrigaPLC::get_all_conv()
 {
-    this->_p->plcData = convAllData(get_all(), fatorConv);
+    this->_p->plcData = convAllData(get_all());
     return this->_p->plcData;
 }
 

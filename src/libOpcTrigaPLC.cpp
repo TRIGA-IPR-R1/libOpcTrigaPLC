@@ -192,6 +192,7 @@ PLC_DATA libOpcTrigaPLC::get_all()
 CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
 {
     CONV_PLC fatorConv;
+    if (filename=="") return fatorConv;
 
     std::ifstream infile(filename);
     std::string line;

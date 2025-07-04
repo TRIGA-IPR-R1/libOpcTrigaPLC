@@ -76,6 +76,15 @@ struct CONV_PER
   //double N = 0;
 };
 
+struct CONV_VAZ //Dúvidas: https://github.com/TRIGA-IPR-R1/Vazao-Placa-Orificio
+{
+  double a = 16/8192; //'a' e 'b':8192 = 20mA (16+4)
+  double b = 4;
+  double c = 18.753;  //'c' e 'd':Conversão de mA para deltaP
+  double d =-74.956;
+  double e = 2.417;   //'e': Conversão de deltaP para vazão
+};
+
 struct CONV_PLC {
   CONV_LIN BarraReg;
   CONV_LIN BarraCon;
@@ -95,7 +104,7 @@ struct CONV_PLC {
   CONV_LOG SRadRes;
   CONV_LOG SRadSaiSec;
   CONV_LOG SRadAer;
-  CONV_LIN SVasPri;
+  CONV_VAZ SVasPri;
 };
 
 void libOpcTrigaPLC_license();
@@ -124,5 +133,6 @@ private:
 
   float convLin(float  x, CONV_LIN conv);
   float convLog(double x, CONV_LOG conv);
-  float convPer(double x, CONV_PER conv);  
+  float convPer(double x, CONV_PER conv);
+  float convVaz(double x, CONV_VAZ conv);
 };

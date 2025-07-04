@@ -111,6 +111,14 @@ float libOpcTrigaPLC::convPer(double x, CONV_PER conv)
     return conv.L/dom;
 }
 
+//Função para converter o valor de x, sendo x sinal de vazão. 
+float libOpcTrigaPLC::convVaz(double x, CONV_VAZ conv)
+{
+    if (x==-1) return x;//Se for igual a -1, nenhum valor foi lido
+    if (x<0) return x;//Se x for negativo, diferente de 1, então é um erro. Essa linha evita de dar erro no cálculo da raíz quadrada.
+    return conv.e * sqrt((x*conv.a+conv.b)*conv.c+conv.d);
+}
+
 //Função para converter os dados brutos do PLC
 PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig)
 {
@@ -133,7 +141,7 @@ PLC_DATA libOpcTrigaPLC::convAllData(PLC_DATA plcOrig)
     plcConv.SRadRes    = convLog(plcOrig.SRadRes,    fatorConv.SRadRes);
     plcConv.SRadSaiSec = convLog(plcOrig.SRadSaiSec, fatorConv.SRadSaiSec);
     plcConv.SRadAer    = convLog(plcOrig.SRadAer,    fatorConv.SRadAer);
-    plcConv.SVasPri    = convLin(plcOrig.SVasPri,    fatorConv.SVasPri);//Converter bits para m^3/h
+    plcConv.SVasPri    = convVaz(plcOrig.SVasPri,    fatorConv.SVasPri);//Converter bits para m^3/h
     return plcConv;
 }
 
@@ -282,10 +290,11 @@ CONV_PLC libOpcTrigaPLC::readFatorConvFile(std::string filename)
             } 
             else if (kind == "SVasPri") 
             {
-                if      (key == "x0") fatorConv.SVasPri.x0 = value;
-                else if (key == "x1") fatorConv.SVasPri.x1 = value;
-                else if (key == "y0") fatorConv.SVasPri.y0 = value;
-                else if (key == "y1") fatorConv.SVasPri.y1 = value;
+                if      (key == "a") fatorConv.SVasPri.a = value;
+                else if (key == "b") fatorConv.SVasPri.b = value;
+                else if (key == "c") fatorConv.SVasPri.c = value;
+                else if (key == "d") fatorConv.SVasPri.d = value;
+                else if (key == "e") fatorConv.SVasPri.e = value;
             } 
             else if (kind == "CLogALog") 
             {

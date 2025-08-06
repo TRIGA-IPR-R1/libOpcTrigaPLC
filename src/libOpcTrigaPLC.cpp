@@ -111,12 +111,30 @@ float libOpcTrigaPLC::convPer(double x, CONV_PER conv)
     return conv.L/dom;
 }
 
-//Função para converter o valor de x, sendo x sinal de vazão. 
+//Função para converter o valor de x, sendo x sinal de vazão.
+//Lembrete:
+//    0 bit =  0 mA
+// 1638 bit =  4 mA
+// 8191 bit = 20 mA
 float libOpcTrigaPLC::convVaz(double x, CONV_VAZ conv)
 {
+    //Verifica erro
     if (x==-1) return x;//Se for igual a -1, nenhum valor foi lido
-    if (x<0) return x;//Se x for negativo, diferente de 1, então é um erro. Essa linha evita de dar erro no cálculo da raíz quadrada.
-    return conv.e * sqrt((x*conv.a+conv.b)*conv.c+conv.d);
+
+    //Converte para corrente
+    double corrente = x*conv.a+conv.b;
+
+    //Verifica erro
+    if (corrente<3.5) return -3;//Se a corrente for menor que 3.5mA provavelmente é um erro de cabo desconectado, ou equivalente...
+    
+    //Converte para pressão
+    double pressao = corrente*conv.c+conv.d;
+
+    //Evita erro: cálculo de raiz negativa
+    if (pressao<=0) return 0;
+
+    //Converte para vazão
+    return conv.e * sqrt(pressao);
 }
 
 //Função para converter os dados brutos do PLC

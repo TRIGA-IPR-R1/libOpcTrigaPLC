@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #include <iostream>
 #include <stdexcept>
 #include <chrono>
+#include <vector>
 
 struct PLC_DATA
 {
@@ -52,6 +53,39 @@ struct PLC_DATA
   float SRadSaiSec    = -1; //ns=2;IoConfig_Globals_Mapping.inSRadSaiSec (%IW29)  //Sensor Radiação Saída Secundário
   float SRadAer       = -1; //ns=2;IoConfig_Globals_Mapping.inSRadAer (%IW30)     //Sensor Radiação Aerossois
   float SVasPri       = -1; //ns=2;IoConfig_Globals_Mapping.inSVasPri (%IW49)     //Sensor Vazão Sistema Primário de Refrigeração
+};
+
+// Matriz Nx2 para os dados do PLC
+// Coluna 0 = Header
+// Coluna 1 = Tipo
+std::vector<std::vector<std::string>> PLC_DATA_MATRIX = {
+    {"PLC_%s_STATE",      "%d"},
+    {"PLC_%s_TIME_Y",     "%d"},
+    {"PLC_%s_TIME_Mo",    "%d"},
+    {"PLC_%s_TIME_D",     "%d"},
+    {"PLC_%s_TIME_H",     "%d"},
+    {"PLC_%s_TIME_Mi",    "%d"},
+    {"PLC_%s_TIME_S",     "%d"},
+    {"PLC_%s_TIME_MS",    "%d"},
+    {"PLC_%s_BarraReg",   "%f"},
+    {"PLC_%s_BarraCon",   "%f"},
+    {"PLC_%s_BarraSeg",   "%f"},
+    {"PLC_%s_CLogALog",   "%f"},
+    {"PLC_%s_CLogALin",   "%f"},
+    {"PLC_%s_CLogAPer",   "%f"},
+    {"PLC_%s_CParALin",   "%f"},
+    {"PLC_%s_CParALog",   "%f"},
+    {"PLC_%s_CParAPer",   "%f"},
+    {"PLC_%s_CLogARea",   "%f"},
+    {"PLC_%s_CLin",       "%f"},
+    {"PLC_%s_CPer",       "%f"},
+    {"PLC_%s_SRadAre",    "%f"},
+    {"PLC_%s_SRadEntPri", "%f"},
+    {"PLC_%s_SRadPoc",    "%f"},
+    {"PLC_%s_SRadRes",    "%f"},
+    {"PLC_%s_SRadSaiSec", "%f"},
+    {"PLC_%s_SRadAer",    "%f"},
+    {"PLC_%s_SVasPri",    "%f"}
 };
 
 struct CONV_LIN
